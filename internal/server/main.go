@@ -19,10 +19,9 @@ type Config struct {
 func NewServer(config Config) *chi.Mux {
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
-    router.Get("/", func(w http.ResponseWriter, r *http.Request) {
-        w.Write([]byte("Hello World!"))
-    })
-
+	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello World!"))
+	})
 
 	return router
 }
