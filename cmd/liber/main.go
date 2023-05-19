@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/lstig/liber/cmd/liber/cmd"
+	"github.com/lstig/liber/cmd/liber/commands"
 )
 
 func main() {
-	cmd.Execute()
+	commands.Execute()
 }
