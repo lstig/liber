@@ -21,7 +21,7 @@ func RegisterRoutes(router chi.Router) {
 	router.Method(http.MethodPost, "/book", nethttp.NewHandler(create()))
 }
 
-type createOutput struct{
+type createOutput struct {
 	ID uuid.UUID `json:"id" type:"uuid"`
 }
 
