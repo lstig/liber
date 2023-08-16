@@ -4,6 +4,8 @@ import (
 	// "github.com/gofrs/uuid"
 	"fmt"
 	"net/http"
+
+	"github.com/lstig/liber/web"
 )
 
 var Version string = "not built correctly"
@@ -20,9 +22,11 @@ func index(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "Index\n")
 }
 
-// Returns a configured gin router with all routes registered
+// Returns a configured router with all routes registered
 func NewServer(config Config) *http.ServeMux {
-	http.HandleFunc("/", index)
-
-	return http.DefaultServeMux
+	router := http.NewServeMux()
+	router.HandleFunc("/", index)
+	router.Handle("/assets/", http.FileServer(http.FS(web.Assets)))
+	return router
 }
+

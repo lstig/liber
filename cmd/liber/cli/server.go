@@ -1,6 +1,8 @@
 package cli
 
 import (
+	"fmt"
+	"log/slog"
 	"net/http"
 
 	"github.com/spf13/cobra"
@@ -15,6 +17,7 @@ var serverCmd = &cobra.Command{
 	Short: "Run eBook server",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		srv := server.NewServer(config)
+		slog.Info("server listening", "address", fmt.Sprintf("http://%v", config.ListenAddress))
 		err := http.ListenAndServe(config.ListenAddress, srv)
 		if err != nil {
 			return err
