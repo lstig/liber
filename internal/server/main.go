@@ -3,9 +3,9 @@ package server
 import (
 	// "github.com/gofrs/uuid"
 	"html/template"
-	"os"
 	"log/slog"
 	"net/http"
+	"os"
 
 	"github.com/lstig/liber/internal/middleware"
 	"github.com/lstig/liber/web"
@@ -23,16 +23,16 @@ type Config struct {
 
 type SiteConfig struct {
 	AssetPath string
-	Title string
+	Title     string
 }
 
 func index(w http.ResponseWriter, req *http.Request) {
 	cfg := &SiteConfig{AssetPath: "assets", Title: "Liber"}
-	view := template.Must(template.ParseFS(web.Views, "views/base.html", "views/index.html"))
-	view.ExecuteTemplate(w, "index.html", cfg)
+	view := template.Must(template.ParseFS(web.Views, "views/base.gohtml", "views/index.gohtml"))
+	view.ExecuteTemplate(w, "index.gohtml", cfg)
 }
 
-// Returns a configured server with all routes registered
+// NewServer returns a configured server with all routes registered
 func NewServer(config Config) http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", index)
@@ -44,4 +44,3 @@ func NewServer(config Config) http.Handler {
 
 	return router
 }
-
