@@ -2,6 +2,7 @@ package server
 
 import (
 	// "github.com/gofrs/uuid"
+	"html/template"
 	"os"
 	"log/slog"
 	"net/http"
@@ -20,15 +21,20 @@ type Config struct {
 	ListenAddress string
 }
 
-func index(w http.ResponseWriter, req *http.Request) {
-	w.Write([]byte("Index\n"))
+type SiteConfig struct {
+	AssetPath string
+	Title string
 }
 
-// Returns a configured router with all routes registered
+func index(w http.ResponseWriter, req *http.Request) {
+	cfg := &SiteConfig{AssetPath: "assets", Title: "Liber"}
+	view := template.Must(template.ParseFS(web.Views, "views/base.html", "views/index.html"))
+	view.ExecuteTemplate(w, "index.html", cfg)
+}
+
+// Returns a configured server with all routes registered
 func NewServer(config Config) http.Handler {
-
 	mux := http.NewServeMux()
-
 	mux.HandleFunc("/", index)
 	mux.Handle("/assets/", http.FileServer(http.FS(web.Assets)))
 

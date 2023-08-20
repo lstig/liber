@@ -1,0 +1,18 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ .Title }}</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ .AssetPath }}/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="{{ .AssetPath }}/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ .AssetPath }}/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ .AssetPath }}/favicon-16x16.png" />
+    <link rel="manifest" href="{{ .AssetPath }}/site.webmanifest" />
+  </head>
+  <body>
+    {{ template "content" . }}
+  </body>
+</html>
+{{ end }}
