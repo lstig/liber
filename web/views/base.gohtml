@@ -10,8 +10,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ .AssetPath }}/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="{{ .AssetPath }}/favicon-16x16.png" />
     <link rel="manifest" href="{{ .AssetPath }}/site.webmanifest" />
+    <!-- TODO: setup vite and properly bundle these -->
+    <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
   </head>
   <body>
+    {{ template "nav" . }}
     {{ template "content" . }}
   </body>
 </html>

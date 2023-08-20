@@ -24,11 +24,24 @@ type Config struct {
 type SiteConfig struct {
 	AssetPath string
 	Title     string
+	Page      string
 }
 
 func index(w http.ResponseWriter, req *http.Request) {
-	cfg := &SiteConfig{AssetPath: "assets", Title: "Liber"}
-	view := template.Must(template.ParseFS(web.Views, "views/base.gohtml", "views/index.gohtml"))
+	cfg := &SiteConfig{AssetPath: "assets", Title: "Liber", Page: "Home"}
+	view := template.Must(template.ParseFS(web.Views, "views/*.gohtml"))
+	view.ExecuteTemplate(w, "index.gohtml", cfg)
+}
+
+func books(w http.ResponseWriter, req *http.Request) {
+	cfg := &SiteConfig{AssetPath: "assets", Title: "Liber", Page: "Books"}
+	view := template.Must(template.ParseFS(web.Views, "views/*.gohtml"))
+	view.ExecuteTemplate(w, "index.gohtml", cfg)
+}
+
+func collections(w http.ResponseWriter, req *http.Request) {
+	cfg := &SiteConfig{AssetPath: "assets", Title: "Liber", Page: "Collections"}
+	view := template.Must(template.ParseFS(web.Views, "views/*.gohtml"))
 	view.ExecuteTemplate(w, "index.gohtml", cfg)
 }
 
@@ -36,6 +49,8 @@ func index(w http.ResponseWriter, req *http.Request) {
 func NewServer(config Config) http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", index)
+	mux.HandleFunc("/books", books)
+	mux.HandleFunc("/collections", collections)
 	mux.Handle("/assets/", http.FileServer(http.FS(web.Assets)))
 
 	logging := middleware.Logging(slog.New(slog.NewTextHandler(os.Stdout, nil)))
