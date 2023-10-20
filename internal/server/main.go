@@ -22,27 +22,30 @@ type Config struct {
 }
 
 type SiteConfig struct {
-	AssetPath string
 	Title     string
 	Page      string
 }
 
+var config SiteConfig = SiteConfig{
+	Title: "Liber",
+}
+
 func index(w http.ResponseWriter, req *http.Request) {
-	cfg := &SiteConfig{AssetPath: "assets", Title: "Liber", Page: "Home"}
-	view := template.Must(template.ParseFS(web.Views, "views/*.gohtml"))
-	view.ExecuteTemplate(w, "index.gohtml", cfg)
+	config.Page = "Home"
+	view := template.Must(template.ParseFS(web.FS, "views/*.gohtml"))
+	view.ExecuteTemplate(w, "index.gohtml", config)
 }
 
 func books(w http.ResponseWriter, req *http.Request) {
-	cfg := &SiteConfig{AssetPath: "assets", Title: "Liber", Page: "Books"}
-	view := template.Must(template.ParseFS(web.Views, "views/*.gohtml"))
-	view.ExecuteTemplate(w, "index.gohtml", cfg)
+	config.Page = "Books"
+	view := template.Must(template.ParseFS(web.FS, "views/*.gohtml"))
+	view.ExecuteTemplate(w, "index.gohtml", config)
 }
 
 func collections(w http.ResponseWriter, req *http.Request) {
-	cfg := &SiteConfig{AssetPath: "assets", Title: "Liber", Page: "Collections"}
-	view := template.Must(template.ParseFS(web.Views, "views/*.gohtml"))
-	view.ExecuteTemplate(w, "index.gohtml", cfg)
+	config.Page = "Collections"
+	view := template.Must(template.ParseFS(web.FS, "views/*.gohtml"))
+	view.ExecuteTemplate(w, "index.gohtml", config)
 }
 
 // NewServer returns a configured server with all routes registered
@@ -51,7 +54,7 @@ func NewServer(config Config) http.Handler {
 	mux.HandleFunc("/", index)
 	mux.HandleFunc("/books", books)
 	mux.HandleFunc("/collections", collections)
-	mux.Handle("/assets/", http.FileServer(http.FS(web.Assets)))
+	mux.Handle("/assets/", http.FileServer(http.FS(web.FS)))
 
 	logging := middleware.Logging(slog.New(slog.NewTextHandler(os.Stdout, nil)))
 
