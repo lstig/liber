@@ -7,6 +7,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/lstig/liber/web"
 	"github.com/spf13/cobra"
 )
 
@@ -29,6 +30,9 @@ func (s *server) Run(_ *cobra.Command, _ []string) error {
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("."))
+	})
+	r.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) {
+		http.FileServer(http.FS(web.Assets)).ServeHTTP(w, r)
 	})
 
 	slog.Info("server listening", "address", fmt.Sprintf("http://%v", s.ListenAddress))
