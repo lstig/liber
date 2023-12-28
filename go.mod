@@ -3,6 +3,7 @@ module github.com/lstig/liber
 go 1.21
 
 require (
+	github.com/go-chi/chi/v5 v5.0.11
 	github.com/magefile/mage v1.15.0
 	github.com/spf13/cobra v1.7.0
 )

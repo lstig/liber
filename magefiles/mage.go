@@ -6,6 +6,6 @@ import (
 )
 
 // Runs the server for local development
-func Server() error {
-    return sh.Run("go", "run", "./cmd/liber", "server")
+func Dev() error {
+    return sh.RunV("go", "run", "./cmd/liber", "server")
 }
