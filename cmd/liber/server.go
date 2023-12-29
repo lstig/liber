@@ -5,8 +5,10 @@ import (
 	"log/slog"
 	"net/http"
 
+	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/lstig/liber/views"
 	"github.com/lstig/liber/web"
 	"github.com/spf13/cobra"
 )
@@ -28,9 +30,7 @@ func (s *server) Run(_ *cobra.Command, _ []string) error {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("."))
-	})
+	r.Get("/", templ.Handler(views.Home()).ServeHTTP)
 	r.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) {
 		http.FileServer(http.FS(web.Assets)).ServeHTTP(w, r)
 	})
