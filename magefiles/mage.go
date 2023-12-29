@@ -8,5 +8,5 @@ import (
 
 // Runs the server for local development
 func Dev() error {
-	return sh.RunV("go", "run", "./cmd/liber", "server")
+	return sh.RunV("air", "server")
 }
