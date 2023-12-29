@@ -17,13 +17,8 @@ templ head(page string) {
 
 templ nav() {
 	<div class="navbar fixed bg-base-100">
-		<div class="flex-none">
-			<button class="btn btn-square btn-ghost">
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-			</button>
-		</div>
 		<div class="flex-1">
-			<a class="btn btn-ghost text-xl">Liber</a>
+			<a href="/" class="btn btn-ghost text-xl">Liber</a>
 		</div>
 		<div class="flex-none gap-2">
 			<div class="form-control">
@@ -32,7 +27,7 @@ templ nav() {
 			<div class="dropdown dropdown-end">
 				<div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
 					<div class="w-10 rounded-full">
-						<img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+						<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32" stroke="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="2"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M16 15.503A5.041 5.041 0 1 0 16 5.42a5.041 5.041 0 0 0 0 10.083zm0 2.215c-6.703 0-11 3.699-11 5.5v3.363h22v-3.363c0-2.178-4.068-5.5-11-5.5z"></path></g></svg>
 					</div>
 				</div>
 				<ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
