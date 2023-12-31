@@ -23,7 +23,11 @@ templ nav(page string) {
 				<i class="icon-menu before:w-6 before:h-6"></i>
 			</label>
 		</div>
-		<div class="flex-1 text-lg lg:text-2xl px-2 mx-2">{ page }</div>
+		<div class="flex-1 text-xl px-2 mx-2 breadcrumbs">
+			<ul>
+				<li>{ page }</li>
+			</ul>
+		</div>
 		<div class="flex-none">
 			<div class="dropdown dropdown-end">
 				<button class="btn btn-ghost btn-circle">
