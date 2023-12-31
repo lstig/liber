@@ -77,6 +77,9 @@ templ layout(page string) {
 				<input id="sidenav" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content flex flex-col">
 					@nav(page)
+					<div class="flex px-2 mx-2">
+						{ children... }
+					</div>
 					<!-- Page content here -->
 				</div>
 				<div class="drawer-side">
