@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log/slog"
 	"net/http"
 
@@ -19,7 +18,7 @@ type server struct {
 
 // BindFlags register flags and bind them to the fields of the 'server' struct
 func (s *server) BindFlags(cmd *cobra.Command) {
-	cmd.Flags().StringVarP(&s.ListenAddress, "address", "a", "127.0.0.1:8080", "the server's listening address")
+	cmd.Flags().StringVarP(&s.ListenAddress, "listen", "l", ":8080", "the server's listening address")
 }
 
 // Run configures the router and starts the server on the specified address/port
@@ -38,7 +37,7 @@ func (s *server) Run(_ *cobra.Command, _ []string) error {
 		http.FileServer(http.FS(web.Assets)).ServeHTTP(w, r)
 	})
 
-	slog.Info("server listening", "address", fmt.Sprintf("http://%v", s.ListenAddress))
+	slog.Info("server listening on " + s.ListenAddress)
 	return http.ListenAndServe(s.ListenAddress, r)
 }
 
