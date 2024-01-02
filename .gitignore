@@ -30,8 +30,8 @@ lerna-debug.log*
 
 # node files
 node_modules
-dist
-!web/dist
+dist/*
+!dist/.gitkeep
 dist-ssr
 *.local
 
