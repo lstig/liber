@@ -30,10 +30,14 @@ lerna-debug.log*
 
 # node files
 node_modules
-dist/*
-!dist/.gitkeep
+dist
 dist-ssr
 *.local
+
+# don't ignore the web dist's .gitkeep
+web/dist/*
+!web/dist
+!web/dist/.gitkeep
 
 # Editor directories and files
 .DS_Store
