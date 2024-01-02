@@ -9,11 +9,9 @@ templ head(page string) {
 	<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"/>
 	<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"/>
 	<link rel="manifest" href="/assets/site.webmanifest"/>
+	<link rel="stylesheet" type="text/css" href="/dist/main.css"/>
 	<!-- TODO: properly bundle these -->
-	<link rel="stylesheet" type="text/css" href="/assets/style.css"/>
 	<script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
-	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css"/>
-	<script src="https://cdn.tailwindcss.com"></script>
 }
 
 templ nav(page string) {
@@ -72,7 +70,7 @@ templ layout(page string) {
 		<head>
 			@head(page)
 		</head>
-		<body style="scrollbar-width: none;"hx-boost="true">
+		<body hx-boost="true">
 			<div class="drawer lg:drawer-open">
 				<input id="sidenav" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content flex flex-col">

@@ -5,9 +5,9 @@ tmp_dir = "out"
 [build]
   args_bin = []
   bin = "./out/main"
-  cmd = "templ generate && go build -o ./out/main ./cmd/liber"
+  cmd = "npm run build && templ generate && go build -o ./out/main ./cmd/liber"
   delay = 1000
-  exclude_dir = ["out", "vendor", "testdata", "magefiles"]
+  exclude_dir = ["out", "vendor", "testdata", "magefiles", "node_modules"]
   exclude_file = []
   exclude_regex = ["_test.go", "_templ.go"]
   exclude_unchanged = false

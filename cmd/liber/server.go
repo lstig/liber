@@ -31,6 +31,9 @@ func (s *server) Run(_ *cobra.Command, _ []string) error {
 	r.Use(middleware.Recoverer)
 
 	r.Get("/", templ.Handler(views.Home()).ServeHTTP)
+	r.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) {
+		http.FileServer(http.FS(web.Dist)).ServeHTTP(w, r)
+	})
 	r.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) {
 		http.FileServer(http.FS(web.Assets)).ServeHTTP(w, r)
 	})

@@ -15,8 +15,9 @@
 vendor/
 
 # IDE Files
-.vscode/
-.idea/
+.vscode/*
+!.vscode/extensions.json
+.idea
 
 # Logs
 logs
@@ -30,7 +31,7 @@ lerna-debug.log*
 # node files
 node_modules
 dist
-web/dist
+!web/dist
 dist-ssr
 *.local
 
