@@ -1,1 +1,1 @@
-import 'htmx.org';
+import './js/app.js';

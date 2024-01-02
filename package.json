@@ -4,11 +4,12 @@
   "description": "eBook server with OPDS support",
   "scripts": {
     "dev": "air server",
-    "build": "postcss -o web/dist/main.css web/src/*.css && rollup --config --silent"
+    "build": "postcss -o web/dist/main.css web/src/*.css && rollup --config --silent && templ generate"
   },
   "author": "Luke Stigdon",
   "license": "MIT",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "autoprefixer": "^10.4.16",
