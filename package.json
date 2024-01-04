@@ -9,11 +9,15 @@
   "author": "Luke Stigdon",
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/config-conventional": "^18.4.3",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "autoprefixer": "^10.4.16",
+    "commitizen": "^4.3.0",
+    "commitlint": "^18.4.3",
     "cssnano": "^6.0.2",
+    "cz-conventional-changelog": "^3.3.0",
     "daisyui": "^4.4.24",
     "postcss": "^8.4.32",
     "postcss-cli": "^11.0.0",
@@ -23,6 +27,11 @@
   },
   "dependencies": {
     "htmx.org": "^1.9.10"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "packageManager": "yarn@4.0.2"
 }
