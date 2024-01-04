@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log/slog"
 	"net/http"
 
 	"github.com/a-h/templ"
@@ -9,46 +8,58 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/lstig/liber/views"
 	"github.com/lstig/liber/web"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
-type server struct {
+type Server struct {
 	ListenAddress string
+	Router        *chi.Mux
+	Logger        *logrus.Logger
+}
+
+func NewServer() *Server {
+	s := &Server{}
+	s.Router = chi.NewRouter()
+	s.Logger = logrus.New()
+	return s
 }
 
 // BindFlags register flags and bind them to the fields of the 'server' struct
-func (s *server) BindFlags(cmd *cobra.Command) {
+func (s *Server) BindFlags(cmd *cobra.Command) {
 	cmd.Flags().StringVarP(&s.ListenAddress, "listen", "l", ":8080", "the server's listening address")
 }
 
-// Run configures the router and starts the server on the specified address/port
-func (s *server) Run(_ *cobra.Command, _ []string) error {
-	r := chi.NewRouter()
+func (s *Server) MountHandlers() {
+	// add middlewares
+	s.Router.Use(middleware.RequestID)
+	s.Router.Use(middleware.Logger)
+	s.Router.Use(middleware.Recoverer)
 
-	r.Use(middleware.RequestID)
-	r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
-
-	r.Get("/", templ.Handler(views.Home()).ServeHTTP)
-	r.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) {
+	// add handlers
+	s.Router.Get("/", templ.Handler(views.Home()).ServeHTTP)
+	s.Router.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) {
 		http.FileServer(http.FS(web.Dist)).ServeHTTP(w, r)
 	})
-	r.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) {
+	s.Router.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) {
 		http.FileServer(http.FS(web.Assets)).ServeHTTP(w, r)
 	})
+}
 
-	slog.Info("server listening on " + s.ListenAddress)
-	return http.ListenAndServe(s.ListenAddress, r)
+// Run configures the router and starts the server on the specified address/port
+func (s *Server) Run(_ *cobra.Command, _ []string) error {
+	s.Logger.Infof("server listening on address %s", s.ListenAddress)
+	return http.ListenAndServe(s.ListenAddress, s.Router)
 }
 
 // newServerCommand returns a configured server command
 func newServerCommand() *cobra.Command {
-	srv := &server{}
+	s := NewServer()
 	cmd := &cobra.Command{
 		Use:   "server",
 		Short: "Run eBook server",
-		RunE:  srv.Run,
+		RunE:  s.Run,
 	}
-	srv.BindFlags(cmd)
+	s.BindFlags(cmd)
 	return cmd
 }
