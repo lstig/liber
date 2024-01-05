@@ -2,26 +2,30 @@ package main
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/httplog/v2"
 	"github.com/lstig/liber/views"
 	"github.com/lstig/liber/web"
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
 type Server struct {
 	ListenAddress string
 	Router        *chi.Mux
-	Logger        *logrus.Logger
+	Logger        *httplog.Logger
 }
 
 func NewServer() *Server {
 	s := &Server{}
 	s.Router = chi.NewRouter()
-	s.Logger = logrus.New()
+	s.Logger = httplog.NewLogger("liber", httplog.Options{
+		Concise: true,
+		TimeFieldFormat: time.RFC3339,
+	})
 	return s
 }
 
@@ -33,7 +37,7 @@ func (s *Server) BindFlags(cmd *cobra.Command) {
 func (s *Server) MountHandlers() {
 	// add middlewares
 	s.Router.Use(middleware.RequestID)
-	s.Router.Use(middleware.Logger)
+	s.Router.Use(httplog.RequestLogger(s.Logger))
 	s.Router.Use(middleware.Recoverer)
 
 	// add handlers
@@ -48,7 +52,7 @@ func (s *Server) MountHandlers() {
 
 // Run configures the router and starts the server on the specified address/port
 func (s *Server) Run(_ *cobra.Command, _ []string) error {
-	s.Logger.Infof("server listening on address %s", s.ListenAddress)
+	s.Logger.Info("server listening", "address", s.ListenAddress)
 	return http.ListenAndServe(s.ListenAddress, s.Router)
 }
 
@@ -61,5 +65,6 @@ func newServerCommand() *cobra.Command {
 		RunE:  s.Run,
 	}
 	s.BindFlags(cmd)
+	s.MountHandlers()
 	return cmd
 }
