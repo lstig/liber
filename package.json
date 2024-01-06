@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "description": "eBook server with OPDS support",
   "scripts": {
-    "dev": "lsof -i :8080 -t | xargs -r kill -9 && air server --listen :8080",
-    "build": "postcss -o web/dist/main.css web/src/*.css && rollup --config --silent && templ generate"
+    "dev": "air server",
+    "build": "yarn build:css && yarn build:js && yarn build:templ",
+    "build:css": "postcss -o web/dist/main.css web/src/*.css",
+    "build:js": "rollup --config --silent",
+    "build:templ": "templ generate"
   },
   "author": "Luke Stigdon",
   "license": "MIT",
