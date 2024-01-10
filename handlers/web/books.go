@@ -17,12 +17,12 @@ type BookService interface {
 
 type BookHandler struct {
 	Log *httplog.Logger
-	BookService 
+	BookService
 }
 
 func NewBookHandler(log *httplog.Logger, bs BookService) *BookHandler {
 	return &BookHandler{
-		Log: log,
+		Log:         log,
 		BookService: bs,
 	}
 }

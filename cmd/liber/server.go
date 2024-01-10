@@ -23,7 +23,7 @@ func NewServer() *Server {
 	s := &Server{}
 	s.Router = chi.NewRouter()
 	s.Logger = httplog.NewLogger("liber", httplog.Options{
-		Concise: true,
+		Concise:         true,
 		TimeFieldFormat: time.RFC3339,
 	})
 	return s

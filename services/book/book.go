@@ -7,8 +7,8 @@ import (
 )
 
 type Book struct {
-	ID string
-	Title string
+	ID     string
+	Title  string
 	Author string
 }
 
