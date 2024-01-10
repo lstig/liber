@@ -35,11 +35,11 @@ func (h *BookHandler) Books(w http.ResponseWriter, r *http.Request) {
 		// write the response
 		w.WriteHeader(http.StatusInternalServerError)
 		if _, err := w.Write([]byte("could not retrieve books")); err != nil {
-			panic(err)
+			h.Log.Error(fmt.Sprintf("could not write data to response: %s", err))
 		}
 		return
 	}
 	if err := views.Books(books).Render(r.Context(), w); err != nil {
-		panic(err)
+		h.Log.Error(fmt.Sprintf("could not write data to response: %s", err))
 	}
 }
