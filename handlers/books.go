@@ -1,4 +1,4 @@
-package book
+package handlers
 
 import (
 	"context"

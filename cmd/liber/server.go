@@ -8,6 +8,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/httplog/v2"
+	"github.com/lstig/liber/handlers"
 	"github.com/lstig/liber/views"
 	"github.com/lstig/liber/web"
 	"github.com/spf13/cobra"
@@ -37,11 +38,15 @@ func (s *Server) BindFlags(cmd *cobra.Command) {
 func (s *Server) MountHandlers() {
 	// add middlewares
 	s.Router.Use(middleware.RequestID)
-	s.Router.Use(httplog.RequestLogger(s.Logger))
+	s.Router.Use(httplog.RequestLogger(s.Logger, []string{"/health"}))
 	s.Router.Use(middleware.Recoverer)
 
-	// add handlers
+	// initialize services
+	health := handlers.NewHealthHandler(s.Logger)
+
+	// register handlers
 	s.Router.Get("/", templ.Handler(views.Home()).ServeHTTP)
+	s.Router.Get("/health", health.Health)
 	s.Router.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) {
 		http.FileServer(http.FS(web.Dist)).ServeHTTP(w, r)
 	})
