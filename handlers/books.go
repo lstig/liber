@@ -40,6 +40,7 @@ func (h *BookHandler) Books(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if err := views.Books(books).Render(r.Context(), w); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
 		h.Log.Error(fmt.Sprintf("could not write data to response: %s", err))
 	}
 }
