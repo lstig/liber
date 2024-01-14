@@ -6,7 +6,7 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
+	chimiddleware "github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/httplog/v2"
 	"github.com/lstig/liber/handlers"
 	"github.com/lstig/liber/views"
@@ -16,6 +16,7 @@ import (
 
 type Server struct {
 	ListenAddress string
+	Dev           bool
 	Router        *chi.Mux
 	Logger        *httplog.Logger
 }
@@ -33,18 +34,20 @@ func NewServer() *Server {
 // BindFlags register flags and bind them to the fields of the 'server' struct
 func (s *Server) BindFlags(cmd *cobra.Command) {
 	cmd.Flags().StringVarP(&s.ListenAddress, "listen", "l", ":8080", "the server's listening address")
+	cmd.Flags().BoolVar(&s.Dev, "dev", false, "run server with additional configuration for development")
 }
 
 func (s *Server) MountHandlers() {
-	// add middlewares
-	s.Router.Use(middleware.RequestID)
+	s.Logger.Debug("configuring middleware")
+	s.Router.Use(chimiddleware.RequestID)
 	s.Router.Use(httplog.RequestLogger(s.Logger, []string{"/health"}))
-	s.Router.Use(middleware.Recoverer)
+	// Recover should come last in the stack
+	s.Router.Use(chimiddleware.Recoverer)
 
-	// initialize services
+	s.Logger.Debug("initializing services")
 	health := handlers.NewHealthHandler(s.Logger)
 
-	// register handlers
+	s.Logger.Debug("registering routes")
 	s.Router.Get("/", templ.Handler(views.Home()).ServeHTTP)
 	s.Router.Get("/health", health.Health)
 	s.Router.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) {
@@ -57,6 +60,8 @@ func (s *Server) MountHandlers() {
 
 // Run configures the router and starts the server on the specified address/port
 func (s *Server) Run(_ *cobra.Command, _ []string) error {
+	s.Logger.Info("server starting", "log_level", s.Logger.Options.LogLevel, "dev_mode", s.Dev)
+	s.MountHandlers()
 	s.Logger.Info("server listening", "address", s.ListenAddress)
 	return http.ListenAndServe(s.ListenAddress, s.Router)
 }
@@ -70,6 +75,5 @@ func newServerCommand() *cobra.Command {
 		RunE:  s.Run,
 	}
 	s.BindFlags(cmd)
-	s.MountHandlers()
 	return cmd
 }

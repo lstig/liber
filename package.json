@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "eBook server with OPDS support",
   "scripts": {
-    "dev": "air server",
+    "dev": "air server --dev",
     "build": "yarn build:css && yarn build:js && yarn build:templ",
     "build:css": "postcss -o web/dist/main.css web/src/*.css",
     "build:js": "rollup --config --silent",
