@@ -9,6 +9,7 @@ import (
 	chimiddleware "github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/httplog/v2"
 	"github.com/lstig/liber/handlers"
+	"github.com/lstig/liber/middleware"
 	"github.com/lstig/liber/views"
 	"github.com/lstig/liber/web"
 	"github.com/spf13/cobra"
@@ -37,13 +38,21 @@ func (s *Server) BindFlags(cmd *cobra.Command) {
 	cmd.Flags().BoolVar(&s.Dev, "dev", false, "run server with additional configuration for development")
 }
 
-func (s *Server) MountHandlers() {
+func (s *Server) configureMiddleware() {
 	s.Logger.Debug("configuring middleware")
 	s.Router.Use(chimiddleware.RequestID)
 	s.Router.Use(httplog.RequestLogger(s.Logger, []string{"/health"}))
+
+	// dev mode only middlware
+	if s.Dev {
+		s.Router.Use(middleware.Prefer)
+	}
+
 	// Recover should come last in the stack
 	s.Router.Use(chimiddleware.Recoverer)
+}
 
+func (s *Server) mountHandlers() {
 	s.Logger.Debug("initializing services")
 	health := handlers.NewHealthHandler(s.Logger)
 
@@ -61,7 +70,8 @@ func (s *Server) MountHandlers() {
 // Run configures the router and starts the server on the specified address/port
 func (s *Server) Run(_ *cobra.Command, _ []string) error {
 	s.Logger.Info("server starting", "log_level", s.Logger.Options.LogLevel, "dev_mode", s.Dev)
-	s.MountHandlers()
+	s.configureMiddleware()
+	s.mountHandlers()
 	s.Logger.Info("server listening", "address", s.ListenAddress)
 	return http.ListenAndServe(s.ListenAddress, s.Router)
 }
