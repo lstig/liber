@@ -40,15 +40,14 @@ func (s *Server) BindFlags(cmd *cobra.Command) {
 
 func (s *Server) configureMiddleware() {
 	s.Logger.Debug("configuring middleware")
-	s.Router.Use(chimiddleware.RequestID)
-	s.Router.Use(httplog.RequestLogger(s.Logger, []string{"/health"}))
 
 	// dev mode only middlware
 	if s.Dev {
 		s.Router.Use(middleware.Prefer)
 	}
 
-	// Recover should come last in the stack
+	s.Router.Use(chimiddleware.RequestID)
+	s.Router.Use(httplog.Handler(s.Logger, []string{"/health"}))
 	s.Router.Use(chimiddleware.Recoverer)
 }
 
