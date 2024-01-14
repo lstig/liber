@@ -63,7 +63,31 @@ templ menuFooter() {
 	</footer>
 }
 
-templ layout(page string) {
+script liveReload() {
+	var reload = false
+	async function liveReload() {
+		try {
+			res = await fetch("/health")
+			if (reload) {
+				location.reload()
+			}
+			while (true) {
+				res = await fetch("/health", {
+					headers: {
+						"Prefer": "wait=60"
+					}
+				})
+			}
+		} catch(error) {
+			console.error("connection error. attempting to reconnect...")
+			reload = true
+		}
+		setTimeout(liveReload, 1000)
+	}
+	liveReload()
+}
+
+templ layout(page string, props *Properties) {
 	<!DOCTYPE html>
 	<html lang="en-US">
 		<head>
@@ -86,6 +110,9 @@ templ layout(page string) {
 					</div>
 				</div>
 			</div>
+			if props.Dev {
+				@liveReload()
+			}
 		</body>
 	</html>
 }

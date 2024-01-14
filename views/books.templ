@@ -2,8 +2,8 @@ package views
 
 import "github.com/lstig/liber/services/book"
 
-templ Books(books []book.Book) {
-	@layout("Books") {
+templ Books(books []book.Book, props *Properties) {
+	@layout("Books", props) {
 		<h1 class="text-5xl font-bold">Books</h1>
 		for _, book := range books {
 			{ book.Title }

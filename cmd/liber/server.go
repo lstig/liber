@@ -20,6 +20,7 @@ type Server struct {
 	Dev           bool
 	Router        *chi.Mux
 	Logger        *httplog.Logger
+	viewProps     *views.Properties
 }
 
 func NewServer() *Server {
@@ -29,6 +30,7 @@ func NewServer() *Server {
 		Concise:         true,
 		TimeFieldFormat: time.RFC3339,
 	})
+	s.viewProps = &views.Properties{}
 	return s
 }
 
@@ -56,7 +58,7 @@ func (s *Server) mountHandlers() {
 	health := handlers.NewHealthHandler(s.Logger)
 
 	s.Logger.Debug("registering routes")
-	s.Router.Get("/", templ.Handler(views.Home()).ServeHTTP)
+	s.Router.Get("/", templ.Handler(views.Home(s.viewProps)).ServeHTTP)
 	s.Router.Get("/health", health.Health)
 	s.Router.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) {
 		http.FileServer(http.FS(web.Dist)).ServeHTTP(w, r)
@@ -66,9 +68,14 @@ func (s *Server) mountHandlers() {
 	})
 }
 
+func (s *Server) setProperties() {
+	s.viewProps.Dev = s.Dev
+}
+
 // Run configures the router and starts the server on the specified address/port
 func (s *Server) Run(_ *cobra.Command, _ []string) error {
 	s.Logger.Info("server starting", "log_level", s.Logger.Options.LogLevel, "dev_mode", s.Dev)
+	s.setProperties()
 	s.configureMiddleware()
 	s.mountHandlers()
 	s.Logger.Info("server listening", "address", s.ListenAddress)
