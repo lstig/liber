@@ -1,25 +1,25 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	"log/slog"
 
 	"github.com/spf13/cobra"
 )
 
-var Version string = "not built correctly"
-
-var rootCmd = &cobra.Command{
-	Use:               "liber",
-	Short:             "Liber is an eBook server with OPDS support",
-	CompletionOptions: cobra.CompletionOptions{DisableDefaultCmd: true},
-}
-
-func main() {
-	rootCmd.AddCommand(newServerCommand())
-
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+func (cli *CLI) root() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:               "liber",
+		Short:             "Liber is an eBook server with OPDS support",
+		Version:           Version,
+		CompletionOptions: cobra.CompletionOptions{DisableDefaultCmd: true},
 	}
+
+	cmd.PersistentFlags().StringVarP(&cli.verbosity, "verbosity", "v", slog.LevelInfo.String(), "log level to display (DEBUG, INFO, WARN, or ERROR)")
+	cmd.PersistentFlags().BoolVar(&cli.devMode, "dev", false, "run cli with additional configuration for development")
+
+	cmd.AddCommand(
+		cli.serverCmd(),
+	)
+
+	return cmd
 }

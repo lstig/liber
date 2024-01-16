@@ -15,51 +15,68 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type ServerOption func(s *Server) error
+
+func WithLogger(logger *httplog.Logger) ServerOption {
+	return func(s *Server) error {
+		s.Logger = logger
+		return nil
+	}
+}
+
+func WithProperties(props *views.Properties) ServerOption {
+	return func(s *Server) error {
+		s.viewProps = props
+		return nil
+	}
+}
+
+func WithMiddlware(middlewares ...func(http.Handler) http.Handler) ServerOption {
+	return func(s *Server) error {
+		s.Router.Use(middlewares...)
+		return nil
+	}
+}
+
 type Server struct {
-	ListenAddress string
-	Dev           bool
-	Router        *chi.Mux
-	Logger        *httplog.Logger
-	viewProps     *views.Properties
+	Router    *chi.Mux
+	Logger    *httplog.Logger
+	viewProps *views.Properties
 }
 
-func NewServer() *Server {
-	s := &Server{}
+func NewServer(opts ...ServerOption) (*Server, error) {
+	// configure the default server
+	s := &Server{
+		viewProps: &views.Properties{},
+	}
 	s.Router = chi.NewRouter()
-	s.Logger = httplog.NewLogger("liber", httplog.Options{
-		Concise:         true,
-		TimeFieldFormat: time.RFC3339,
-	})
-	s.viewProps = &views.Properties{}
-	return s
-}
 
-// BindFlags register flags and bind them to the fields of the 'server' struct
-func (s *Server) BindFlags(cmd *cobra.Command) {
-	cmd.Flags().StringVarP(&s.ListenAddress, "listen", "l", ":8080", "the server's listening address")
-	cmd.Flags().BoolVar(&s.Dev, "dev", false, "run server with additional configuration for development")
-}
-
-func (s *Server) configureMiddleware() {
-	s.Logger.Debug("configuring middleware")
-
-	// dev mode only middlware
-	if s.Dev {
-		s.Router.Use(middleware.Prefer)
+	// apply options
+	for _, opt := range opts {
+		if err := opt(s); err != nil {
+			return nil, err
+		}
 	}
 
-	s.Router.Use(chimiddleware.RequestID)
-	s.Router.Use(httplog.Handler(s.Logger, []string{"/health"}))
-	s.Router.Use(chimiddleware.Recoverer)
+	// add a default logger if one wasn't provided
+	if s.Logger == nil {
+		s.Logger = httplog.NewLogger("server")
+	}
+
+	return s, nil
 }
 
 func (s *Server) mountHandlers() {
-	s.Logger.Debug("initializing services")
+	// instantiate services
 	health := handlers.NewHealthHandler(s.Logger)
 
-	s.Logger.Debug("registering routes")
+	// endpoints
 	s.Router.Get("/", templ.Handler(views.Home(s.viewProps)).ServeHTTP)
-	s.Router.Get("/health", health.Health)
+
+	// health check
+	s.Router.With(middleware.Prefer).Get("/health", health.Health)
+
+	// static assets
 	s.Router.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) {
 		http.FileServer(http.FS(web.Dist)).ServeHTTP(w, r)
 	})
@@ -68,28 +85,41 @@ func (s *Server) mountHandlers() {
 	})
 }
 
-func (s *Server) setProperties() {
-	s.viewProps.Dev = s.Dev
-}
-
-// Run configures the router and starts the server on the specified address/port
-func (s *Server) Run(_ *cobra.Command, _ []string) error {
-	s.Logger.Info("server starting", "log_level", s.Logger.Options.LogLevel, "dev_mode", s.Dev)
-	s.setProperties()
-	s.configureMiddleware()
-	s.mountHandlers()
-	s.Logger.Info("server listening", "address", s.ListenAddress)
-	return http.ListenAndServe(s.ListenAddress, s.Router)
-}
-
-// newServerCommand returns a configured server command
-func newServerCommand() *cobra.Command {
-	s := NewServer()
+func (cli *CLI) serverCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "server",
 		Short: "Run eBook server",
-		RunE:  s.Run,
+		RunE:  cli.serverRun,
 	}
-	s.BindFlags(cmd)
+
+	cmd.Flags().StringVarP(&cli.server.listenAddress, "listen", "l", ":8080", "the server's listening address")
+
 	return cmd
+}
+
+func (cli *CLI) serverRun(cmd *cobra.Command, args []string) error {
+	logger := httplog.NewLogger("liber", httplog.Options{
+		Concise:         true,
+		LogLevel:        httplog.LevelByName(cli.verbosity),
+		TimeFieldFormat: time.RFC3339,
+	})
+	srv, err := NewServer(
+		WithLogger(logger),
+		WithProperties(&views.Properties{
+			Dev: cli.devMode,
+		}),
+		WithMiddlware(
+			chimiddleware.RequestID,
+			httplog.Handler(logger, []string{"/health"}),
+			chimiddleware.Recoverer,
+		),
+	)
+	if err != nil {
+		return err
+	}
+
+	srv.Logger.Info("server starting", "log_level", srv.Logger.Options.LogLevel, "dev_mode", cli.devMode)
+	srv.mountHandlers()
+	srv.Logger.Info("server listening", "address", cli.server.listenAddress)
+	return http.ListenAndServe(cli.server.listenAddress, srv.Router)
 }
