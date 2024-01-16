@@ -21,7 +21,7 @@
     "commitlint": "^18.4.3",
     "cssnano": "^6.0.2",
     "cz-conventional-changelog": "^3.3.0",
-    "daisyui": "^4.4.24",
+    "daisyui": "^4.6.0",
     "postcss": "^8.4.32",
     "postcss-cli": "^11.0.0",
     "postcss-import": "^15.1.0",

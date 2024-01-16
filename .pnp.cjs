@@ -35,7 +35,7 @@ const RAW_RUNTIME_STATE =
           ["commitlint", "npm:18.4.3"],\
           ["cssnano", "virtual:b1aadc5734ce2f33b21fb3550c1a286d1ccb6502f25ecbf020b21f41d8580ecbe4b1802f2eebab016a2d1edf061a2ac105dc24a89c8ec006b169dbabc4cafe84#npm:6.0.2"],\
           ["cz-conventional-changelog", "npm:3.3.0"],\
-          ["daisyui", "npm:4.4.24"],\
+          ["daisyui", "npm:4.6.0"],\
           ["htmx.org", "npm:1.9.10"],\
           ["postcss", "npm:8.4.32"],\
           ["postcss-cli", "virtual:b1aadc5734ce2f33b21fb3550c1a286d1ccb6502f25ecbf020b21f41d8580ecbe4b1802f2eebab016a2d1edf061a2ac105dc24a89c8ec006b169dbabc4cafe84#npm:11.0.0"],\
@@ -1723,14 +1723,14 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["daisyui", [\
-      ["npm:4.4.24", {\
-        "packageLocation": "../../.yarn/berry/cache/daisyui-npm-4.4.24-7b0c3b8422-10c0.zip/node_modules/daisyui/",\
+      ["npm:4.6.0", {\
+        "packageLocation": "../../.yarn/berry/cache/daisyui-npm-4.6.0-b5a7536e82-10c0.zip/node_modules/daisyui/",\
         "packageDependencies": [\
-          ["daisyui", "npm:4.4.24"],\
+          ["daisyui", "npm:4.6.0"],\
           ["css-selector-tokenizer", "npm:0.8.0"],\
           ["culori", "npm:3.3.0"],\
           ["picocolors", "npm:1.0.0"],\
-          ["postcss-js", "virtual:7b0c3b842219930e60ba623c4092d38b331f3dda26065b0f3fbee46255e6f0a41145cc932ae0df3808eeab9f1cac4eccc8238f6157b5a48c29b3a715bb26021f#npm:4.0.1"]\
+          ["postcss-js", "virtual:b5a7536e82fbc936262c93da612249146ca5cf143cd160d6df54380f6058e33fba257c7b358fac61b3ade9113ea2a815ce6b3c880b4664ac27d774cba10fd7e4#npm:4.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2963,7 +2963,7 @@ const RAW_RUNTIME_STATE =
           ["commitlint", "npm:18.4.3"],\
           ["cssnano", "virtual:b1aadc5734ce2f33b21fb3550c1a286d1ccb6502f25ecbf020b21f41d8580ecbe4b1802f2eebab016a2d1edf061a2ac105dc24a89c8ec006b169dbabc4cafe84#npm:6.0.2"],\
           ["cz-conventional-changelog", "npm:3.3.0"],\
-          ["daisyui", "npm:4.4.24"],\
+          ["daisyui", "npm:4.6.0"],\
           ["htmx.org", "npm:1.9.10"],\
           ["postcss", "npm:8.4.32"],\
           ["postcss-cli", "virtual:b1aadc5734ce2f33b21fb3550c1a286d1ccb6502f25ecbf020b21f41d8580ecbe4b1802f2eebab016a2d1edf061a2ac105dc24a89c8ec006b169dbabc4cafe84#npm:11.0.0"],\
@@ -4107,10 +4107,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:7b0c3b842219930e60ba623c4092d38b331f3dda26065b0f3fbee46255e6f0a41145cc932ae0df3808eeab9f1cac4eccc8238f6157b5a48c29b3a715bb26021f#npm:4.0.1", {\
-        "packageLocation": "./.yarn/__virtual__/postcss-js-virtual-ec5eef3c42/3/.yarn/berry/cache/postcss-js-npm-4.0.1-2c4ee70bf3-10c0.zip/node_modules/postcss-js/",\
+      ["virtual:b5a7536e82fbc936262c93da612249146ca5cf143cd160d6df54380f6058e33fba257c7b358fac61b3ade9113ea2a815ce6b3c880b4664ac27d774cba10fd7e4#npm:4.0.1", {\
+        "packageLocation": "./.yarn/__virtual__/postcss-js-virtual-d84cfcb047/3/.yarn/berry/cache/postcss-js-npm-4.0.1-2c4ee70bf3-10c0.zip/node_modules/postcss-js/",\
         "packageDependencies": [\
-          ["postcss-js", "virtual:7b0c3b842219930e60ba623c4092d38b331f3dda26065b0f3fbee46255e6f0a41145cc932ae0df3808eeab9f1cac4eccc8238f6157b5a48c29b3a715bb26021f#npm:4.0.1"],\
+          ["postcss-js", "virtual:b5a7536e82fbc936262c93da612249146ca5cf143cd160d6df54380f6058e33fba257c7b358fac61b3ade9113ea2a815ce6b3c880b4664ac27d774cba10fd7e4#npm:4.0.1"],\
           ["@types/postcss", null],\
           ["camelcase-css", "npm:2.0.1"],\
           ["postcss", null]\

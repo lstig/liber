@@ -1395,15 +1395,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^4.4.24":
-  version: 4.4.24
-  resolution: "daisyui@npm:4.4.24"
+"daisyui@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "daisyui@npm:4.6.0"
   dependencies:
     css-selector-tokenizer: "npm:^0.8"
     culori: "npm:^3"
     picocolors: "npm:^1"
     postcss-js: "npm:^4"
-  checksum: 2221d7c7b16f09d54aaf2b2c46e49ee11f8cd9ef42848b03e7cba01bf5aa2ee00ca3d67f8c08b0b8c1356990eb2fd96740647e4f260592ef0f3f883c281b7808
+  checksum: 8067773259cdac8a6bd84538656e3d2cc338f57b8be08cd95a9a274c9c2c0fd9a4c270b6c39bc1025c0229ff0bfacbdaaab7403470fec7a191533acc678900fc
   languageName: node
   linkType: hard
 
@@ -2483,7 +2483,7 @@ __metadata:
     commitlint: "npm:^18.4.3"
     cssnano: "npm:^6.0.2"
     cz-conventional-changelog: "npm:^3.3.0"
-    daisyui: "npm:^4.4.24"
+    daisyui: "npm:^4.6.0"
     htmx.org: "npm:^1.9.10"
     postcss: "npm:^8.4.32"
     postcss-cli: "npm:^11.0.0"
