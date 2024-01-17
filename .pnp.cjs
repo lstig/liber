@@ -33,6 +33,7 @@ const RAW_RUNTIME_STATE =
           ["autoprefixer", "virtual:b1aadc5734ce2f33b21fb3550c1a286d1ccb6502f25ecbf020b21f41d8580ecbe4b1802f2eebab016a2d1edf061a2ac105dc24a89c8ec006b169dbabc4cafe84#npm:10.4.16"],\
           ["commitizen", "npm:4.3.0"],\
           ["commitlint", "npm:18.4.3"],\
+          ["concurrently", "npm:8.2.2"],\
           ["cssnano", "virtual:b1aadc5734ce2f33b21fb3550c1a286d1ccb6502f25ecbf020b21f41d8580ecbe4b1802f2eebab016a2d1edf061a2ac105dc24a89c8ec006b169dbabc4cafe84#npm:6.0.2"],\
           ["cz-conventional-changelog", "npm:3.3.0"],\
           ["daisyui", "npm:4.6.0"],\
@@ -83,6 +84,16 @@ const RAW_RUNTIME_STATE =
           ["@babel/helper-validator-identifier", "npm:7.22.20"],\
           ["chalk", "npm:2.4.2"],\
           ["js-tokens", "npm:4.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@babel/runtime", [\
+      ["npm:7.23.8", {\
+        "packageLocation": "../../.yarn/berry/cache/@babel-runtime-npm-7.23.8-c8503a23a8-10c0.zip/node_modules/@babel/runtime/",\
+        "packageDependencies": [\
+          ["@babel/runtime", "npm:7.23.8"],\
+          ["regenerator-runtime", "npm:0.14.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -1396,6 +1407,24 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["concurrently", [\
+      ["npm:8.2.2", {\
+        "packageLocation": "../../.yarn/berry/cache/concurrently-npm-8.2.2-8ae42f052b-10c0.zip/node_modules/concurrently/",\
+        "packageDependencies": [\
+          ["concurrently", "npm:8.2.2"],\
+          ["chalk", "npm:4.1.2"],\
+          ["date-fns", "npm:2.30.0"],\
+          ["lodash", "npm:4.17.21"],\
+          ["rxjs", "npm:7.8.1"],\
+          ["shell-quote", "npm:1.8.1"],\
+          ["spawn-command", "npm:0.0.2"],\
+          ["supports-color", "npm:8.1.1"],\
+          ["tree-kill", "npm:1.2.2"],\
+          ["yargs", "npm:17.7.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["conventional-changelog-angular", [\
       ["npm:7.0.0", {\
         "packageLocation": "../../.yarn/berry/cache/conventional-changelog-angular-npm-7.0.0-de5edb79f0-10c0.zip/node_modules/conventional-changelog-angular/",\
@@ -1740,6 +1769,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../.yarn/berry/cache/dargs-npm-7.0.0-62701e0c7a-10c0.zip/node_modules/dargs/",\
         "packageDependencies": [\
           ["dargs", "npm:7.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["date-fns", [\
+      ["npm:2.30.0", {\
+        "packageLocation": "../../.yarn/berry/cache/date-fns-npm-2.30.0-895c790e0f-10c0.zip/node_modules/date-fns/",\
+        "packageDependencies": [\
+          ["date-fns", "npm:2.30.0"],\
+          ["@babel/runtime", "npm:7.23.8"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2961,6 +3000,7 @@ const RAW_RUNTIME_STATE =
           ["autoprefixer", "virtual:b1aadc5734ce2f33b21fb3550c1a286d1ccb6502f25ecbf020b21f41d8580ecbe4b1802f2eebab016a2d1edf061a2ac105dc24a89c8ec006b169dbabc4cafe84#npm:10.4.16"],\
           ["commitizen", "npm:4.3.0"],\
           ["commitlint", "npm:18.4.3"],\
+          ["concurrently", "npm:8.2.2"],\
           ["cssnano", "virtual:b1aadc5734ce2f33b21fb3550c1a286d1ccb6502f25ecbf020b21f41d8580ecbe4b1802f2eebab016a2d1edf061a2ac105dc24a89c8ec006b169dbabc4cafe84#npm:6.0.2"],\
           ["cz-conventional-changelog", "npm:3.3.0"],\
           ["daisyui", "npm:4.6.0"],\
@@ -4862,6 +4902,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["regenerator-runtime", [\
+      ["npm:0.14.1", {\
+        "packageLocation": "../../.yarn/berry/cache/regenerator-runtime-npm-0.14.1-a6c97c609a-10c0.zip/node_modules/regenerator-runtime/",\
+        "packageDependencies": [\
+          ["regenerator-runtime", "npm:0.14.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["require-directory", [\
       ["npm:2.1.1", {\
         "packageLocation": "../../.yarn/berry/cache/require-directory-npm-2.1.1-8608aee50b-10c0.zip/node_modules/require-directory/",\
@@ -5074,6 +5123,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["shell-quote", [\
+      ["npm:1.8.1", {\
+        "packageLocation": "../../.yarn/berry/cache/shell-quote-npm-1.8.1-fcccf06093-10c0.zip/node_modules/shell-quote/",\
+        "packageDependencies": [\
+          ["shell-quote", "npm:1.8.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["signal-exit", [\
       ["npm:3.0.7", {\
         "packageLocation": "../../.yarn/berry/cache/signal-exit-npm-3.0.7-bd270458a3-10c0.zip/node_modules/signal-exit/",\
@@ -5165,6 +5223,15 @@ const RAW_RUNTIME_STATE =
           ["source-map-support", "npm:0.5.21"],\
           ["buffer-from", "npm:1.1.2"],\
           ["source-map", "npm:0.6.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["spawn-command", [\
+      ["npm:0.0.2", {\
+        "packageLocation": "../../.yarn/berry/cache/spawn-command-npm-0.0.2-014d4d5d9f-10c0.zip/node_modules/spawn-command/",\
+        "packageDependencies": [\
+          ["spawn-command", "npm:0.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5379,6 +5446,14 @@ const RAW_RUNTIME_STATE =
           ["has-flag", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:8.1.1", {\
+        "packageLocation": "../../.yarn/berry/cache/supports-color-npm-8.1.1-289e937149-10c0.zip/node_modules/supports-color/",\
+        "packageDependencies": [\
+          ["supports-color", "npm:8.1.1"],\
+          ["has-flag", "npm:4.0.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["supports-preserve-symlinks-flag", [\
@@ -5538,6 +5613,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["to-regex-range", "npm:5.0.1"],\
           ["is-number", "npm:7.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["tree-kill", [\
+      ["npm:1.2.2", {\
+        "packageLocation": "../../.yarn/berry/cache/tree-kill-npm-1.2.2-3da0e5a759-10c0.zip/node_modules/tree-kill/",\
+        "packageDependencies": [\
+          ["tree-kill", "npm:1.2.2"]\
         ],\
         "linkType": "HARD"\
       }]\

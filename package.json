@@ -4,10 +4,10 @@
   "description": "eBook server with OPDS support",
   "scripts": {
     "dev": "air server --dev",
-    "build": "yarn build:css && yarn build:js && yarn build:templ",
-    "build:css": "postcss -o web/dist/main.css web/src/*.css",
-    "build:js": "rollup --config --silent",
-    "build:templ": "templ generate"
+    "build": "conc \"yarn:css\" \"yarn:js\" \"yarn:templ\"",
+    "css": "postcss -o web/dist/main.css web/src/*.css",
+    "js": "rollup --config --silent",
+    "templ": "templ generate"
   },
   "author": "Luke Stigdon",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "autoprefixer": "^10.4.16",
     "commitizen": "^4.3.0",
     "commitlint": "^18.4.3",
+    "concurrently": "^8.2.2",
     "cssnano": "^6.0.2",
     "cz-conventional-changelog": "^3.3.0",
     "daisyui": "^4.6.0",
