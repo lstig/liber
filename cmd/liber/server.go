@@ -74,7 +74,7 @@ func (s *Server) mountHandlers() {
 	s.Router.Get("/", templ.Handler(views.Home(s.viewProps)).ServeHTTP)
 
 	// health check
-	s.Router.With(middleware.Prefer).Get("/health", health.Health)
+	s.Router.Get("/health", health.Health)
 
 	// static assets
 	s.Router.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) {
@@ -116,6 +116,13 @@ func (cli *CLI) serverRun(cmd *cobra.Command, args []string) error {
 	)
 	if err != nil {
 		return err
+	}
+
+	// add dev specific middleware
+	if cli.devMode {
+		// adding to the front of the chain so we're called before Recoverer
+		middlewares := append(chi.Middlewares{middleware.Prefer}, srv.Router.Middlewares()...)
+		srv.Router.Use(middlewares...)
 	}
 
 	srv.Logger.Info("server starting", "log_level", srv.Logger.Options.LogLevel, "dev_mode", cli.devMode)
