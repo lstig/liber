@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	"github.com/go-chi/httplog/v2"
-	"github.com/lstig/liber/services/book"
-	"github.com/lstig/liber/views"
+	"github.com/lstig/liber/internal/services/book"
+	"github.com/lstig/liber/internal/views"
 )
 
 type BookService interface {

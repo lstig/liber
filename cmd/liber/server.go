@@ -8,9 +8,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	chimiddleware "github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/httplog/v2"
-	"github.com/lstig/liber/handlers"
-	"github.com/lstig/liber/middleware"
-	"github.com/lstig/liber/views"
+	"github.com/lstig/liber/internal/handlers"
+	"github.com/lstig/liber/internal/middleware"
+	"github.com/lstig/liber/internal/views"
 	"github.com/lstig/liber/web"
 	"github.com/spf13/cobra"
 )
