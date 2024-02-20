@@ -5,7 +5,7 @@ tmp_dir = "out"
 [build]
 args_bin = []
 bin = "./out/liber"
-cmd = "go build -o ./out/liber github.com/lstig/liber/cmd/liber"
+cmd = "mage dev:build"
 delay = 1000
 exclude_dir = ["web/dist"]
 exclude_file = []
@@ -21,7 +21,6 @@ log = "build-errors.log"
 poll = false
 poll_interval = 0
 post_cmd = ["lsof -i :8080 -sTCP:LISTEN -t | xargs -r kill -9"]
-pre_cmd = ["yarn build"]
 rerun = false
 rerun_delay = 500
 send_interrupt = false

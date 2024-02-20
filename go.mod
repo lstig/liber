@@ -6,6 +6,7 @@ require (
 	github.com/a-h/templ v0.2.501
 	github.com/go-chi/chi/v5 v5.0.11
 	github.com/go-chi/httplog/v2 v2.0.8
+	github.com/magefile/mage v1.15.0
 	github.com/spf13/cobra v1.7.0
 )
 
