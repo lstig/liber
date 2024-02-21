@@ -87,7 +87,7 @@ func nav(page string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</li></ul></div><div class=\"flex-none\"><div class=\"dropdown dropdown-end\"><button class=\"btn btn-ghost btn-circle\"><i class=\"icon-user before:w-5 before:h-5\"></i></button><ul tabindex=\"0\" class=\"mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52\"><li><a>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</li></ul></div><div class=\"flex-none\"><div class=\"dropdown dropdown-end\"><button class=\"btn btn-ghost btn-circle\"><i class=\"icon-user before:w-5 before:h-5\"></i></button><ul tabindex=\"0\" class=\"mt-3 z-[1] p-2 shadow menu menu-md dropdown-content bg-base-200 rounded-box w-52\"><li><a>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
