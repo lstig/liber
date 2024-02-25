@@ -1,5 +1,16 @@
 linters:
+  disable-all: true
   enable:
+    - containedctx
+    - errcheck
+    - gocritic
     - gocyclo
     - gofmt
+    - goimports
+    - gosimple
+    - govet
+    - ineffassign
     - misspell
+    - staticcheck
+    - unused
+    - whitespace
