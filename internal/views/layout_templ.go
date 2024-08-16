@@ -35,7 +35,7 @@ func head(page string) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(page)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/layout.templ`, Line: 5, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/layout.templ`, Line: 5, Col: 25}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -81,7 +81,7 @@ func nav(page string) templ.Component {
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(page)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/layout.templ`, Line: 24, Col: 14}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/layout.templ`, Line: 24, Col: 26}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
@@ -283,30 +283,30 @@ func menuFooter() templ.Component {
 
 func liveReload() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_liveReload_cb75`,
-		Function: `function __templ_liveReload_cb75(){var reload = false
-	async function liveReload() {
-		try {
-			res = await fetch("/health")
-			if (reload) {
-				location.reload()
-			}
-			while (true) {
-				res = await fetch("/health", {
-					headers: {
-						"Prefer": "wait=60"
-					}
-				})
-			}
-		} catch(error) {
-			console.error("connection error. attempting to reconnect...")
-			reload = true
-		}
-		setTimeout(liveReload, 1000)
-	}
-	liveReload()}`,
-		Call:       templ.SafeScript(`__templ_liveReload_cb75`),
-		CallInline: templ.SafeScriptInline(`__templ_liveReload_cb75`),
+		Name: `__templ_liveReload_c328`,
+		Function: `function __templ_liveReload_c328(){var reload = false
+    async function liveReload() {
+        try {
+            res = await fetch("/health")
+            if (reload) {
+                location.reload()
+            }
+            while (true) {
+                res = await fetch("/health", {
+                    headers: {
+                        "Prefer": "wait=60"
+                    }
+                })
+            }
+        } catch(error) {
+            console.error("connection error. attempting to reconnect...")
+            reload = true
+        }
+        setTimeout(liveReload, 1000)
+    }
+    liveReload()}`,
+		Call:       templ.SafeScript(`__templ_liveReload_c328`),
+		CallInline: templ.SafeScriptInline(`__templ_liveReload_c328`),
 	}
 }
 
