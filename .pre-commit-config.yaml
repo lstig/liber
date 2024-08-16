@@ -16,3 +16,10 @@ repos:
         entry: yarn commitlint --edit
         pass_filenames: false
         always_run: true
+      - id: templ
+        name: templ
+        description: Verifies that generated templ files are up-to-date
+        entry: templ generate
+        files: '.*\.templ'
+        language: golang
+        pass_filenames: false
