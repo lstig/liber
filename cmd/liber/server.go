@@ -92,7 +92,7 @@ func (cli *CLI) serverCmd() *cobra.Command {
 		RunE:  cli.serverRun,
 	}
 
-	cmd.Flags().StringVarP(&cli.server.listenAddress, "listen", "l", ":8080", "the server's listening address")
+	cmd.Flags().StringVarP(&cli.server.listenAddress, "listen", "l", ":8081", "the server's listening address")
 
 	return cmd
 }
