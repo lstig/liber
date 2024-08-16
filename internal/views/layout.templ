@@ -1,118 +1,118 @@
 package views
 
 templ head(page string) {
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width,initial-scale=1"/>
-	<title>Liber - { page }</title>
-	<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/>
-	<link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
-	<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"/>
-	<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"/>
-	<link rel="manifest" href="/assets/site.webmanifest"/>
-	<link rel="stylesheet" type="text/css" href="/dist/main.css"/>
-	<script src="/dist/bundle.min.js"></script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Liber - { page }</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"/>
+    <link rel="manifest" href="/assets/site.webmanifest"/>
+    <link rel="stylesheet" type="text/css" href="/dist/main.css"/>
+    <script src="/dist/bundle.min.js"></script>
 }
 
 templ nav(page string) {
-	<div class="w-full navbar bg-base-100">
-		<div class="flex-none lg:hidden">
-			<label for="sidenav" aria-label="open sidebar" class="btn btn-square btn-ghost">
-				<i class="icon-menu before:w-6 before:h-6"></i>
-			</label>
-		</div>
-		<div class="flex-1 text-xl px-2 mx-2 breadcrumbs">
-			<ul>
-				<li>{ page }</li>
-			</ul>
-		</div>
-		<div class="flex-none">
-			<div class="dropdown dropdown-end">
-				<button class="btn btn-ghost btn-circle">
-					<i class="icon-user before:w-5 before:h-5"></i>
-				</button>
-				<ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-md dropdown-content bg-base-200 rounded-box w-52">
-					<li><a>Profile</a></li>
-					<li><a>Logout</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+    <div class="w-full navbar bg-base-100">
+        <div class="flex-none lg:hidden">
+            <label for="sidenav" aria-label="open sidebar" class="btn btn-square btn-ghost">
+                <i class="icon-menu before:w-6 before:h-6"></i>
+            </label>
+        </div>
+        <div class="flex-1 text-xl px-2 mx-2 breadcrumbs">
+            <ul>
+                <li>{ page }</li>
+            </ul>
+        </div>
+        <div class="flex-none">
+            <div class="dropdown dropdown-end">
+                <button class="btn btn-ghost btn-circle">
+                    <i class="icon-user before:w-5 before:h-5"></i>
+                </button>
+                <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-md dropdown-content bg-base-200 rounded-box w-52">
+                    <li><a>Profile</a></li>
+                    <li><a>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 }
 
 templ menu() {
-	<ul class="menu flex-1 p-4 bg-base-200 text-base-content">
-		<li class="menu-title">Liber</li>
-		<li><a>Item 1</a></li>
-		<li><a>Item 2</a></li>
-		<li><a>Item 3</a></li>
-		<li><a>Item 4</a></li>
-		<li><a>Item 5</a></li>
-		<li><a>Item 6</a></li>
-		<li><a>Item 7</a></li>
-		<li><a>Item 8</a></li>
-		<li><a>Item 9</a></li>
-		<li><a>Item 10</a></li>
-	</ul>
+    <ul class="menu flex-1 p-4 bg-base-200 text-base-content">
+        <li class="menu-title">Liber</li>
+        <li><a>Item 1</a></li>
+        <li><a>Item 2</a></li>
+        <li><a>Item 3</a></li>
+        <li><a>Item 4</a></li>
+        <li><a>Item 5</a></li>
+        <li><a>Item 6</a></li>
+        <li><a>Item 7</a></li>
+        <li><a>Item 8</a></li>
+        <li><a>Item 9</a></li>
+        <li><a>Item 10</a></li>
+    </ul>
 }
 
 templ menuFooter() {
-	<footer class="footer flex-none p-4 bg-base-200 text-base-content">
-		<aside>
-			<p>Liber &ndash; <u>version</u></p>
-		</aside>
-	</footer>
+    <footer class="footer flex-none p-4 bg-base-200 text-base-content">
+        <aside>
+            <p>Liber &ndash; <u>version</u></p>
+        </aside>
+    </footer>
 }
 
 script liveReload() {
-	var reload = false
-	async function liveReload() {
-		try {
-			res = await fetch("/health")
-			if (reload) {
-				location.reload()
-			}
-			while (true) {
-				res = await fetch("/health", {
-					headers: {
-						"Prefer": "wait=60"
-					}
-				})
-			}
-		} catch(error) {
-			console.error("connection error. attempting to reconnect...")
-			reload = true
-		}
-		setTimeout(liveReload, 1000)
-	}
-	liveReload()
+    var reload = false
+    async function liveReload() {
+        try {
+            res = await fetch("/health")
+            if (reload) {
+                location.reload()
+            }
+            while (true) {
+                res = await fetch("/health", {
+                    headers: {
+                        "Prefer": "wait=60"
+                    }
+                })
+            }
+        } catch(error) {
+            console.error("connection error. attempting to reconnect...")
+            reload = true
+        }
+        setTimeout(liveReload, 1000)
+    }
+    liveReload()
 }
 
 templ layout(page string, props *Properties) {
-	<!DOCTYPE html>
-	<html lang="en-US">
-		<head>
-			@head(page)
-		</head>
-		<body hx-boost="true">
-			<div class="drawer lg:drawer-open">
-				<input id="sidenav" type="checkbox" class="drawer-toggle"/>
-				<div class="drawer-content flex flex-col">
-					@nav(page)
-					<div class="flex px-2 mx-2">
-						{ children... }
-					</div>
-				</div>
-				<div class="drawer-side">
-					<label for="sidenav" aria-label="close sidebar" class="drawer-overlay"></label>
-					<div class="h-full w-80 flex flex-col">
-						@menu()
-						@menuFooter()
-					</div>
-				</div>
-			</div>
-			if props.Dev {
-				@liveReload()
-			}
-		</body>
-	</html>
+    <!DOCTYPE html>
+    <html lang="en-US">
+        <head>
+            @head(page)
+        </head>
+        <body hx-boost="true">
+            <div class="drawer lg:drawer-open">
+                <input id="sidenav" type="checkbox" class="drawer-toggle"/>
+                <div class="drawer-content flex flex-col">
+                    @nav(page)
+                    <div class="flex px-2 mx-2">
+                        { children... }
+                    </div>
+                </div>
+                <div class="drawer-side">
+                    <label for="sidenav" aria-label="close sidebar" class="drawer-overlay"></label>
+                    <div class="h-full w-80 flex flex-col">
+                        @menu()
+                        @menuFooter()
+                    </div>
+                </div>
+            </div>
+            if props.Dev {
+                @liveReload()
+            }
+        </body>
+    </html>
 }
