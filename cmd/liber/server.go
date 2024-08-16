@@ -31,7 +31,7 @@ func WithProperties(props *views.Properties) ServerOption {
 	}
 }
 
-func WithMiddlware(middlewares ...func(http.Handler) http.Handler) ServerOption {
+func WithMiddleware(middlewares ...func(http.Handler) http.Handler) ServerOption {
 	return func(s *Server) error {
 		s.Router.Use(middlewares...)
 		return nil
@@ -108,7 +108,7 @@ func (cli *CLI) serverRun(cmd *cobra.Command, args []string) error {
 		WithProperties(&views.Properties{
 			Dev: cli.devMode,
 		}),
-		WithMiddlware(
+		WithMiddleware(
 			chimiddleware.RequestID,
 			httplog.Handler(logger, []string{"/health"}),
 			chimiddleware.Recoverer,
