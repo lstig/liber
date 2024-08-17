@@ -138,37 +138,7 @@ func menuFooter() templ.Component {
 	})
 }
 
-func liveReload() templ.ComponentScript {
-	return templ.ComponentScript{
-		Name: `__templ_liveReload_c328`,
-		Function: `function __templ_liveReload_c328(){var reload = false
-    async function liveReload() {
-        try {
-            res = await fetch("/health")
-            if (reload) {
-                location.reload()
-            }
-            while (true) {
-                res = await fetch("/health", {
-                    headers: {
-                        "Prefer": "wait=60"
-                    }
-                })
-            }
-        } catch(error) {
-            console.error("connection error. attempting to reconnect...")
-            reload = true
-        }
-        setTimeout(liveReload, 1000)
-    }
-    liveReload()
-}`,
-		Call:       templ.SafeScript(`__templ_liveReload_c328`),
-		CallInline: templ.SafeScriptInline(`__templ_liveReload_c328`),
-	}
-}
-
-func layout(page string, props *Properties) templ.Component {
+func layout(page string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -222,17 +192,7 @@ func layout(page string, props *Properties) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if props.Dev {
-			templ_7745c5c3_Err = liveReload().Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

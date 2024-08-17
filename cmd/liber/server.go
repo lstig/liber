@@ -8,11 +8,12 @@ import (
 	"github.com/go-chi/chi/v5"
 	chimiddleware "github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/httplog/v2"
+	"github.com/spf13/cobra"
+
 	"github.com/lstig/liber/internal/handlers"
 	"github.com/lstig/liber/internal/middleware"
 	"github.com/lstig/liber/internal/views"
 	"github.com/lstig/liber/web"
-	"github.com/spf13/cobra"
 )
 
 type ServerOption func(s *Server) error
@@ -66,7 +67,7 @@ func NewServer(opts ...ServerOption) (*Server, error) {
 	return s, nil
 }
 
-func (s *Server) mountHandlers() {
+func (s *Server) mountHandlers(devMode bool) {
 	// instantiate services
 	health := handlers.NewHealthHandler(s.Logger)
 
@@ -77,11 +78,12 @@ func (s *Server) mountHandlers() {
 	s.Router.Get("/health", health.Health)
 
 	// static assets
-	s.Router.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) {
-		http.FileServer(http.FS(web.Dist)).ServeHTTP(w, r)
-	})
-	s.Router.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) {
-		http.FileServer(http.FS(web.Assets)).ServeHTTP(w, r)
+	s.Router.Group(func(r chi.Router) {
+		if devMode {
+			r.Use(middleware.CacheControl("no-cache, no-store, must-revalidate"))
+		}
+		r.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) { http.FileServer(http.FS(web.Dist)).ServeHTTP(w, r) })
+		r.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) { http.FileServer(http.FS(web.Assets)).ServeHTTP(w, r) })
 	})
 }
 
@@ -118,15 +120,8 @@ func (cli *CLI) serverRun(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	// add dev specific middleware
-	if cli.devMode {
-		// adding to the front of the chain so we're called before Recoverer
-		middlewares := append(chi.Middlewares{middleware.Prefer}, srv.Router.Middlewares()...)
-		srv.Router.Use(middlewares...)
-	}
-
 	srv.Logger.Info("server starting", "log_level", srv.Logger.Options.LogLevel, "dev_mode", cli.devMode)
-	srv.mountHandlers()
+	srv.mountHandlers(cli.devMode)
 	srv.Logger.Info("server listening", "address", cli.server.listenAddress)
 	return http.ListenAndServe(cli.server.listenAddress, srv.Router)
 }

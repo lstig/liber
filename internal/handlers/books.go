@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/httplog/v2"
+
 	"github.com/lstig/liber/internal/services/book"
 	"github.com/lstig/liber/internal/views"
 )

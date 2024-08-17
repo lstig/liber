@@ -26,6 +26,11 @@ rerun_delay = 500
 send_interrupt = false
 stop_on_error = false
 
+[proxy]
+enabled = true
+proxy_port = 8082
+app_port = 8081
+
 [color]
 app = "blue"
 build = "yellow"
