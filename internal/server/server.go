@@ -17,7 +17,7 @@ type Option func(s *Server) error
 
 func WithLogger(logger *httplog.Logger) Option {
 	return func(s *Server) error {
-		s.Logger = logger
+		s.logger = logger
 		return nil
 	}
 }
@@ -38,14 +38,14 @@ func WithProperties(props *views.Properties) Option {
 
 func WithMiddleware(middlewares ...func(http.Handler) http.Handler) Option {
 	return func(s *Server) error {
-		s.Router.Use(middlewares...)
+		s.router.Use(middlewares...)
 		return nil
 	}
 }
 
 type Server struct {
-	Router    *chi.Mux
-	Logger    *httplog.Logger
+	logger    *httplog.Logger
+	router    *chi.Mux
 	devMode   bool
 	viewProps *views.Properties
 }
@@ -55,7 +55,7 @@ func NewServer(opts ...Option) (*Server, error) {
 	s := &Server{
 		viewProps: &views.Properties{},
 	}
-	s.Router = chi.NewRouter()
+	s.router = chi.NewRouter()
 
 	// apply options
 	for _, opt := range opts {
@@ -65,29 +65,36 @@ func NewServer(opts ...Option) (*Server, error) {
 	}
 
 	// add a default logger if one wasn't provided
-	if s.Logger == nil {
-		s.Logger = httplog.NewLogger("server")
+	if s.logger == nil {
+		s.logger = httplog.NewLogger("server")
 	}
 
 	return s, nil
 }
 
-func (s *Server) MountHandlers() {
+func (s *Server) mountHandlers() {
 	// instantiate services
-	health := handlers.NewHealthHandler(s.Logger)
+	health := handlers.NewHealthHandler(s.logger)
 
 	// endpoints
-	s.Router.Get("/", templ.Handler(views.Home(s.viewProps)).ServeHTTP)
+	s.router.Get("/", templ.Handler(views.Home(s.viewProps)).ServeHTTP)
 
 	// health check
-	s.Router.Get("/health", health.Health)
+	s.router.Get("/health", health.Health)
 
 	// static assets
-	s.Router.Group(func(r chi.Router) {
+	s.router.Group(func(r chi.Router) {
 		if s.devMode {
 			r.Use(middleware.SetHeader("Cache-Control", "no-cache, no-store, must-revalidate"))
 		}
 		r.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) { http.FileServer(http.FS(web.Dist)).ServeHTTP(w, r) })
 		r.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) { http.FileServer(http.FS(web.Assets)).ServeHTTP(w, r) })
 	})
+}
+
+func (s *Server) ListenAndServe(addr string) error {
+	s.logger.Info("server starting", "log_level", s.logger.Options.LogLevel, "dev_mode", s.devMode)
+	s.mountHandlers()
+	s.logger.Info("server listening", "address", addr)
+	return http.ListenAndServe(addr, s.router)
 }

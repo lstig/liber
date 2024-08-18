@@ -1,7 +1,6 @@
 package main
 
 import (
-	"net/http"
 	"time"
 
 	chimiddleware "github.com/go-chi/chi/v5/middleware"
@@ -46,8 +45,5 @@ func (cli *CLI) serverRun(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	srv.Logger.Info("server starting", "log_level", srv.Logger.Options.LogLevel, "dev_mode", cli.devMode)
-	srv.MountHandlers()
-	srv.Logger.Info("server listening", "address", cli.server.listenAddress)
-	return http.ListenAndServe(cli.server.listenAddress, srv.Router)
+	return srv.ListenAndServe(cli.server.listenAddress)
 }
