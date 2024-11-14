@@ -3,7 +3,7 @@ module github.com/lstig/liber
 go 1.22.6
 
 require (
-	github.com/a-h/templ v0.2.747
+	github.com/a-h/templ v0.2.793
 	github.com/go-chi/chi/v5 v5.1.0
 	github.com/go-chi/httplog/v2 v2.1.1
 	github.com/magefile/mage v1.15.0
