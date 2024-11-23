@@ -5,29 +5,27 @@
   "author": "Luke Stigdon",
   "license": "MIT",
   "devDependencies": {
-    "@commitlint/config-conventional": "^19.2.2",
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-terser": "^0.4.4",
     "autoprefixer": "^10.4.20",
-    "commitizen": "^4.3.0",
-    "commitlint": "^19.4.0",
-    "cssnano": "^7.0.5",
+    "commitizen": "^4.3.1",
+    "commitlint": "^19.6.0",
+    "cssnano": "^7.0.6",
     "cz-conventional-changelog": "^3.3.0",
-    "daisyui": "^4.12.10",
-    "postcss": "^8.4.41",
+    "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",
     "postcss-import": "^16.1.0",
-    "rollup": "^4.20.0",
-    "tailwindcss": "^3.4.10"
+    "rollup": "^4.27.4"
   },
   "dependencies": {
-    "htmx.org": "^2.0.2"
+    "htmx.org": "2.0.3"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
   },
-  "packageManager": "yarn@4.5.1"
+  "packageManager": "yarn@4.5.2+sha512.570504f67349ef26d2d86a768dc5ec976ead977aa086b0bb4237e97d5db7ae5c620f9f0e0edf3ea5047205063faff102bf2a2d778664a94eaaa1085ad483fe2e"
 }

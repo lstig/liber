@@ -1,5 +1,5 @@
-@import "./css/icons.css";
+@import "./css/reset.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+html {
+    font-family: system-ui;
+}
