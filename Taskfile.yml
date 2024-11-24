@@ -21,24 +21,24 @@ tasks:
       - air --build.bin {{ .BUILD_BIN }} server --dev
 
   css:
-    internal: true
     cmds:
       - yarn postcss -o web/dist/main.css web/src/*.css
+    internal: true
     sources:
       - web/src/**/*.css
     generates:
       - web/dist/main.css
 
   js:
-    internal: true
     cmds:
       - yarn rollup --config --silent
+    internal: true
     sources:
       - web/src/**/*.js
     generates:
       - web/dist/bundle.min.js
 
   templ:
-    internal: true
     cmds:
       - templ generate
+    internal: true
