@@ -5,7 +5,7 @@ tmp_dir = "out"
 [build]
 args_bin = []
 bin = "./out/liber"
-cmd = "mage dev:build"
+cmd = "task dev:build"
 delay = 1000
 exclude_dir = ["web/dist"]
 exclude_file = []

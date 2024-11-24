@@ -1,0 +1,54 @@
+version: '3'
+
+vars:
+  MODULE: github.com/lstig/liber
+  BUILD_BIN: out/liber
+
+tasks:
+  dev:build:
+    desc: Build `liber` binary
+    deps:
+      - build:css
+      - build:js
+      - build:templ
+    cmds:
+      - go build -o {{ .BUILD_BIN }} {{ .MODULE }}/cmd/liber
+
+  dev:run:
+    desc: Run a local development server
+    cmds:
+      - air --build.bin {{ .BUILD_BIN }} server --dev
+
+  build:css:
+    cmds:
+      - yarn postcss -o web/dist/main.css web/src/*.css
+
+  build:js:
+    cmds:
+      - yarn rollup --config --silent
+
+  build:templ:
+    cmds:
+      - templ generate
+
+#  func (Dev) Build() error {
+#  mg.Deps(css, js, templ)
+#  return sh.RunV(goCmd, "build", "-o", bin, module)
+#}
+#
+#  // Runs a development server with hot-reloading
+#  func (Dev) Run() error {
+#  return sh.RunV(airCmd, "--build.bin", bin, "server", "--dev")
+#}
+#
+#  func css() error {
+#  return sh.RunV(yarnCmd, "postcss", "-o", "web/dist/main.css", "web/src/*.css")
+#}
+#
+#  func js() error {
+#  return sh.RunV(yarnCmd, "rollup", "--config", "--silent")
+#}
+#
+#  func templ() error {
+#  return sh.RunV(templCmd, "generate")
+#}
