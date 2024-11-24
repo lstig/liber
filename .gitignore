@@ -49,3 +49,4 @@ web/dist/*
 
 # temporary build directories
 out/
+.task/

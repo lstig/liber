@@ -1,32 +1,44 @@
 version: '3'
 
 vars:
-  MODULE: github.com/lstig/liber
+  MODULE:
+    sh: go list -m
   BUILD_BIN: out/liber
 
 tasks:
-  dev:build:
-    desc: Build `liber` binary
+  build:
+    desc: Build liber binary
     deps:
-      - build:css
-      - build:js
-      - build:templ
+      - css
+      - js
+      - templ
     cmds:
       - go build -o {{ .BUILD_BIN }} {{ .MODULE }}/cmd/liber
 
-  dev:run:
+  run:
     desc: Run a local development server
     cmds:
       - air --build.bin {{ .BUILD_BIN }} server --dev
 
-  build:css:
+  css:
+    internal: true
     cmds:
       - yarn postcss -o web/dist/main.css web/src/*.css
+    sources:
+      - web/src/**/*.css
+    generates:
+      - web/dist/main.css
 
-  build:js:
+  js:
+    internal: true
     cmds:
       - yarn rollup --config --silent
+    sources:
+      - web/src/**/*.js
+    generates:
+      - web/dist/bundle.min.js
 
-  build:templ:
+  templ:
+    internal: true
     cmds:
       - templ generate
