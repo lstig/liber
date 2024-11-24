@@ -1,5 +1,5 @@
 package views
 
-type Properties struct {
+type GlobalProperties struct {
 	Dev bool
 }

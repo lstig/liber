@@ -3,7 +3,6 @@ package server
 import (
 	"net/http"
 
-	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/httplog/v2"
 
@@ -29,7 +28,7 @@ func WithDevMode(enabled bool) Option {
 	}
 }
 
-func WithProperties(props *views.Properties) Option {
+func WithProperties(props *views.GlobalProperties) Option {
 	return func(s *Server) error {
 		s.viewProps = props
 		return nil
@@ -47,13 +46,13 @@ type Server struct {
 	logger    *httplog.Logger
 	router    *chi.Mux
 	devMode   bool
-	viewProps *views.Properties
+	viewProps *views.GlobalProperties
 }
 
 func NewServer(opts ...Option) (*Server, error) {
 	// configure the default server
 	s := &Server{
-		viewProps: &views.Properties{},
+		viewProps: &views.GlobalProperties{},
 	}
 	s.router = chi.NewRouter()
 
@@ -75,12 +74,13 @@ func NewServer(opts ...Option) (*Server, error) {
 func (s *Server) mountHandlers() {
 	// instantiate services
 	health := handlers.NewHealthHandler(s.logger)
+	home := handlers.NewHomeHandler(s.logger, s.viewProps)
 
 	// endpoints
-	s.router.Get("/", templ.Handler(views.Home(s.viewProps)).ServeHTTP)
+	s.router.Get("/", home.ServeHTTP)
 
 	// health check
-	s.router.Get("/health", health.Health)
+	s.router.Get("/health", health.ServeHTTP)
 
 	// static assets
 	s.router.Group(func(r chi.Router) {

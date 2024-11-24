@@ -37,7 +37,7 @@ dist-ssr
 # don't ignore the web dist's .gitkeep
 web/dist/*
 !web/dist
-!web/dist/sneaky
+!web/dist/.gitkeep
 
 # Editor directories and files
 .DS_Store

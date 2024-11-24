@@ -32,7 +32,7 @@ func (cli *CLI) serverRun(cmd *cobra.Command, args []string) error {
 	srv, err := server.NewServer(
 		server.WithLogger(logger),
 		server.WithDevMode(cli.devMode),
-		server.WithProperties(&views.Properties{
+		server.WithProperties(&views.GlobalProperties{
 			Dev: cli.devMode,
 		}),
 		server.WithMiddleware(
