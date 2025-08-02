@@ -7,7 +7,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.1",
     "@rollup/plugin-commonjs": "^28.0.6",
-    "@rollup/plugin-node-resolve": "^15.3.1",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "autoprefixer": "^10.4.21",
     "commitizen": "^4.3.1",
