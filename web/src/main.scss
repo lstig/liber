@@ -1,0 +1,10 @@
+@use "node_modules/bulma/sass";
+
+@use "./css/reset.css";
+
+html, body {
+  font-family: system-ui;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+

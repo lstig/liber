@@ -16,7 +16,7 @@ repos:
         name: commitlint
         description: Commitlint hook
         language: node
-        entry: yarn commitlint --edit
+        entry: pnpm commitlint --edit
         pass_filenames: false
         always_run: true
       - id: templ

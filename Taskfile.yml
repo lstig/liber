@@ -9,8 +9,7 @@ tasks:
   build:
     desc: Build liber binary
     deps:
-      - css
-      - js
+      - assets
       - templ
     cmds:
       - go build -o {{ .BUILD_BIN }} {{ .MODULE }}/cmd/liber
@@ -30,23 +29,18 @@ tasks:
     cmds:
       - go tool -modfile=tools/go.mod air --build.bin {{ .BUILD_BIN }} server --dev
 
-  css:
+  assets:
     cmds:
-      - yarn postcss -o web/dist/main.css web/src/*.css
-    internal: true
-    sources:
-      - web/src/**/*.css
-    generates:
-      - web/dist/main.css
-
-  js:
-    cmds:
-      - yarn rollup --config --silent
+      - pnpm rollup --config --silent
     internal: true
     sources:
       - web/src/**/*.js
+      - web/src/**/*.css
+      - web/src/**/*.scss
     generates:
       - web/dist/bundle.min.js
+      - web/dist/bundle.min.css
+
 
   templ:
     cmds:

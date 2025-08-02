@@ -12,20 +12,19 @@
     "autoprefixer": "^10.4.21",
     "commitizen": "^4.3.1",
     "commitlint": "^19.8.1",
-    "cssnano": "^7.1.0",
     "cz-conventional-changelog": "^3.3.0",
-    "postcss": "^8.5.6",
-    "postcss-cli": "^11.0.1",
-    "postcss-import": "^16.1.1",
-    "rollup": "^4.46.2"
+    "rollup": "^4.46.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "sass": "^1.89.2"
   },
   "dependencies": {
-    "@starfederation/datastar": "https://gitpkg.vercel.app/starfederation/datastar/library?v1.0.0-RC.4"
+    "@starfederation/datastar": "^1.0.0-beta.11",
+    "bulma": "^1.0.4"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
   },
-  "packageManager": "yarn@4.9.2+sha512.1fc009bc09d13cfd0e19efa44cbfc2b9cf6ca61482725eb35bbc5e257e093ebf4130db6dfe15d604ff4b79efd8e1e8e99b25fa7d0a6197c9f9826358d4d65c3c"
+  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
 }
