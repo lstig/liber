@@ -15,10 +15,20 @@ tasks:
     cmds:
       - go build -o {{ .BUILD_BIN }} {{ .MODULE }}/cmd/liber
 
+  lint:
+    desc: Lint project code
+    cmds:
+      - go tool -modfile=tools/go.mod golangci-lint run
+
+  fmt:
+    desc: Format project code
+    cmds:
+      - go tool -modfile=tools/go.mod golangci-lint fmt
+
   run:
     desc: Run a local development server
     cmds:
-      - air --build.bin {{ .BUILD_BIN }} server --dev
+      - go tool -modfile=tools/go.mod air --build.bin {{ .BUILD_BIN }} server --dev
 
   css:
     cmds:
@@ -40,5 +50,5 @@ tasks:
 
   templ:
     cmds:
-      - templ generate
+      - go tool -modfile=tools/go.mod templ generate
     internal: true
