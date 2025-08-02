@@ -1,10 +1,10 @@
 package views
 
-templ head(page string) {
+templ head(title string) {
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width,initial-scale=1"/>
-        <title>Liber - { page }</title>
+        <title>Liber - { title }</title>
         <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/>
         <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
         <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"/>
@@ -21,13 +21,14 @@ templ footer() {
     </footer>
 }
 
-templ layout(page string) {
+templ layout(title string) {
     <!DOCTYPE html>
     <html lang="en-US">
-        @head(page)
-        <body hx-boost="true">
+        @head(title)
+        <body>
             <main>
-            <h1>{ page }</h1>
+                <h1>{ title }</h1>
+                { children... }
             </main>
             @footer()
         </body>

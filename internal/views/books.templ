@@ -4,7 +4,6 @@ import "github.com/lstig/liber/internal/services/book"
 
 templ Books(books []book.Book, props *GlobalProperties) {
 	@layout("Books") {
-		<h1 class="text-5xl font-bold">Books</h1>
 		for _, book := range books {
 			{ book.Title }
 		}
