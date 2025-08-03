@@ -2,13 +2,13 @@
 
 @use "./css/reset.css";
 
-section.fullheight {
-    min-height: calc(100vh - var(--bulma-navbar-height));
-}
-
 html {
   font-family: system-ui;
   min-height: 100vh;
   min-height: 100dvh;
 }
 
+section.app-content {
+    border-radius: 7px 0 0 0;
+    min-height: calc(100vh - var(--bulma-navbar-height));
+}
