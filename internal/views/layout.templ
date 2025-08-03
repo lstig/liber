@@ -1,99 +1,99 @@
 package views
 
 templ head(title string) {
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width,initial-scale=1"/>
-        <title>Liber - { title }</title>
-        <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/>
-        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
-        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"/>
-        <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"/>
-        <link rel="manifest" href="/assets/site.webmanifest"/>
-        <link rel="stylesheet" type="text/css" href="/dist/bundle.min.css"/>
-        <script src="/dist/bundle.min.js"></script>
-    </head>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<title>Liber - { title }</title>
+		<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/>
+		<link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"/>
+		<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"/>
+		<link rel="manifest" href="/assets/site.webmanifest"/>
+		<link rel="stylesheet" type="text/css" href="/dist/bundle.min.css"/>
+		<script src="/dist/bundle.min.js"></script>
+	</head>
 }
 
 templ footer() {
-    <footer>
-        <p>Liber &ndash; <u>version</u></p>
-    </footer>
+	<footer>
+		<p>Liber &ndash; <u>version</u></p>
+	</footer>
 }
 
 templ navbar() {
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <h5 class="title is-5">Liber</h5>
-        </a>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-      <div class="navbar-menu">
-         <div class="navbar-end">
-           <a class="navbar-item">
-             Log in
-           </a>
-         </div>
-      </div>
-    </nav>
+	<nav class="navbar" role="navigation" aria-label="main navigation">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="/">
+				<h5 class="title is-5">Liber</h5>
+			</a>
+			<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+			</a>
+		</div>
+		<div class="navbar-menu">
+			<div class="navbar-end">
+				<a class="navbar-item">
+					Log in
+				</a>
+			</div>
+		</div>
+	</nav>
 }
 
 templ sidenav() {
-    <section class="p-5">
-        <aside class="menu">
-          <p class="menu-label">General</p>
-          <ul class="menu-list">
-            <li><a>Dashboard</a></li>
-            <li><a>Customers</a></li>
-          </ul>
-          <p class="menu-label">Administration</p>
-          <ul class="menu-list">
-            <li><a>Team Settings</a></li>
-            <li>
-              <a class="is-active">Manage Your Team</a>
-              <ul>
-                <li><a>Members</a></li>
-                <li><a>Plugins</a></li>
-                <li><a>Add a member</a></li>
-              </ul>
-            </li>
-            <li><a>Invitations</a></li>
-            <li><a>Cloud Storage Environment Settings</a></li>
-            <li><a>Authentication</a></li>
-          </ul>
-          <p class="menu-label">Transactions</p>
-          <ul class="menu-list">
-            <li><a>Payments</a></li>
-            <li><a>Transfers</a></li>
-            <li><a>Balance</a></li>
-          </ul>
-        </aside>
-    </section>
+	<section class="p-5">
+		<aside class="menu">
+			<p class="menu-label">General</p>
+			<ul class="menu-list">
+				<li><a>Dashboard</a></li>
+				<li><a>Customers</a></li>
+			</ul>
+			<p class="menu-label">Administration</p>
+			<ul class="menu-list">
+				<li><a>Team Settings</a></li>
+				<li>
+					<a class="is-active">Manage Your Team</a>
+					<ul>
+						<li><a>Members</a></li>
+						<li><a>Plugins</a></li>
+						<li><a>Add a member</a></li>
+					</ul>
+				</li>
+				<li><a>Invitations</a></li>
+				<li><a>Cloud Storage Environment Settings</a></li>
+				<li><a>Authentication</a></li>
+			</ul>
+			<p class="menu-label">Transactions</p>
+			<ul class="menu-list">
+				<li><a>Payments</a></li>
+				<li><a>Transfers</a></li>
+				<li><a>Balance</a></li>
+			</ul>
+		</aside>
+	</section>
 }
 
 templ layout(title string) {
-    <!DOCTYPE html>
-    <html lang="en-US">
-        @head(title)
-        <body>
-            @navbar()
-            <div class="columns mb-0 is-gapless">
-                <div class="column is-hidden-mobile is-narrow">
-                    @sidenav()
-                </div>
-                <div class="column">
-                    <section class="section fullheight has-background-light">
-                        <h1 class="title">{ title }</h1>
-                        { children... }
-                    </section>
-                </div>
-            </div>
-        </body>
-    </html>
+	<!DOCTYPE html>
+	<html lang="en-US">
+		@head(title)
+		<body>
+			@navbar()
+			<div class="columns mb-0 is-gapless">
+				<div class="column is-hidden-mobile is-narrow">
+					@sidenav()
+				</div>
+				<div class="column">
+					<section class="section fullheight has-background-light">
+						<h1 class="title">{ title }</h1>
+						{ children... }
+					</section>
+				</div>
+			</div>
+		</body>
+	</html>
 }

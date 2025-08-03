@@ -22,7 +22,7 @@ repos:
       - id: templ
         name: templ
         description: Verifies that generated templ files are up-to-date
-        entry: go tool -modfile=tools/go.mod templ generate
+        entry: go tool -modfile=tools/go.mod templ generate && go tool -modfile=tools/go.mod templ fmt .
         files: '.*\.templ'
         language: golang
         pass_filenames: false
