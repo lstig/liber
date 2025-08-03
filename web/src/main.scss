@@ -2,7 +2,11 @@
 
 @use "./css/reset.css";
 
-html, body {
+section.fullheight {
+    min-height: calc(100vh - var(--bulma-navbar-height));
+}
+
+html {
   font-family: system-ui;
   min-height: 100vh;
   min-height: 100dvh;
