@@ -9,7 +9,6 @@ var Version string = "not built correctly"
 
 type CLI struct {
 	verbosity string
-	devMode   bool
 	server    struct {
 		listenAddress string
 	}

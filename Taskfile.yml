@@ -7,12 +7,18 @@ vars:
 
 tasks:
   build:
-    desc: Build liber binary
-    deps:
-      - assets
-      - templ
+    desc: Build liber binarygo r
+    vars:
+      CSS_BUNDLE:
+        sh: basename web/dist/bundle-*.css
+      JS_BUNDLE:
+        sh: basename web/dist/bundle-*.js
+      LDFLAGS:
+        - "-X '{{joinPath .MODULE \"web\"}}.CssBundle={{.CSS_BUNDLE}}'"
+        - "-X '{{joinPath .MODULE \"web\"}}.JsBundle={{.JS_BUNDLE}}'"
     cmds:
-      - go build -o {{ .BUILD_BIN }} {{ .MODULE }}/cmd/liber
+      - go generate ./...
+      - go build -ldflags="{{.LDFLAGS | join " "}}" -o {{ .BUILD_BIN }} {{ .MODULE }}/cmd/liber
 
   lint:
     desc: Lint project code
@@ -23,26 +29,9 @@ tasks:
     desc: Format project code
     cmds:
       - go tool -modfile=tools/go.mod golangci-lint fmt
+      - go tool -modfile=tools/go.mod templ fmt .
 
   run:
     desc: Run a local development server
     cmds:
-      - go tool -modfile=tools/go.mod air --build.bin {{ .BUILD_BIN }} server --dev
-
-  assets:
-    cmds:
-      - pnpm rollup --config --silent
-    internal: true
-    sources:
-      - web/src/**/*.js
-      - web/src/**/*.css
-      - web/src/**/*.scss
-    generates:
-      - web/dist/bundle.min.js
-      - web/dist/bundle.min.css
-
-
-  templ:
-    cmds:
-      - go tool -modfile=tools/go.mod templ generate
-    internal: true
+      - go tool -modfile=tools/go.mod air --build.bin {{ .BUILD_BIN }} server

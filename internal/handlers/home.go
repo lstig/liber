@@ -10,12 +10,11 @@ import (
 )
 
 type HomeHandler struct {
-	Log   *httplog.Logger
-	props *views.GlobalProperties
+	Log *httplog.Logger
 }
 
-func NewHomeHandler(log *httplog.Logger, props *views.GlobalProperties) *HomeHandler {
-	return &HomeHandler{log, props}
+func NewHomeHandler(log *httplog.Logger) *HomeHandler {
+	return &HomeHandler{log}
 }
 
 func (h *HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +31,7 @@ func (h *HomeHandler) Get(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *HomeHandler) View(w http.ResponseWriter, r *http.Request) {
-	if err := views.Home(h.props).Render(r.Context(), w); err != nil {
+	if err := views.Home().Render(r.Context(), w); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		h.Log.Error(fmt.Sprintf("error during response: %s", err))
 	}

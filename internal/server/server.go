@@ -7,8 +7,6 @@ import (
 	"github.com/go-chi/httplog/v2"
 
 	"github.com/lstig/liber/internal/handlers"
-	"github.com/lstig/liber/internal/middleware"
-	"github.com/lstig/liber/internal/views"
 	"github.com/lstig/liber/web"
 )
 
@@ -21,20 +19,6 @@ func WithLogger(logger *httplog.Logger) Option {
 	}
 }
 
-func WithDevMode(enabled bool) Option {
-	return func(s *Server) error {
-		s.devMode = enabled
-		return nil
-	}
-}
-
-func WithProperties(props *views.GlobalProperties) Option {
-	return func(s *Server) error {
-		s.viewProps = props
-		return nil
-	}
-}
-
 func WithMiddleware(middlewares ...func(http.Handler) http.Handler) Option {
 	return func(s *Server) error {
 		s.router.Use(middlewares...)
@@ -43,17 +27,13 @@ func WithMiddleware(middlewares ...func(http.Handler) http.Handler) Option {
 }
 
 type Server struct {
-	logger    *httplog.Logger
-	router    *chi.Mux
-	devMode   bool
-	viewProps *views.GlobalProperties
+	logger *httplog.Logger
+	router *chi.Mux
 }
 
 func NewServer(opts ...Option) (*Server, error) {
 	// configure the default server
-	s := &Server{
-		viewProps: &views.GlobalProperties{},
-	}
+	s := &Server{}
 	s.router = chi.NewRouter()
 
 	// apply options
@@ -74,7 +54,7 @@ func NewServer(opts ...Option) (*Server, error) {
 func (s *Server) mountHandlers() {
 	// instantiate services
 	health := handlers.NewHealthHandler(s.logger)
-	home := handlers.NewHomeHandler(s.logger, s.viewProps)
+	home := handlers.NewHomeHandler(s.logger)
 
 	// endpoints
 	s.router.Get("/", home.ServeHTTP)
@@ -83,17 +63,13 @@ func (s *Server) mountHandlers() {
 	s.router.Get("/health", health.ServeHTTP)
 
 	// static assets
-	s.router.Group(func(r chi.Router) {
-		if s.devMode {
-			r.Use(middleware.SetHeader("Cache-Control", "no-cache, no-store, must-revalidate"))
-		}
-		r.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) { http.FileServer(http.FS(web.Dist)).ServeHTTP(w, r) })
-		r.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) { http.FileServer(http.FS(web.Assets)).ServeHTTP(w, r) })
-	})
+	s.router.Get("/dist/*", func(w http.ResponseWriter, r *http.Request) { http.FileServer(http.FS(web.Dist)).ServeHTTP(w, r) })
+	s.router.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) { http.FileServer(http.FS(web.Assets)).ServeHTTP(w, r) })
+
 }
 
 func (s *Server) ListenAndServe(addr string) error {
-	s.logger.Info("server starting", "log_level", s.logger.Options.LogLevel, "dev_mode", s.devMode)
+	s.logger.Info("server starting", "log_level", s.logger.Options.LogLevel)
 	s.mountHandlers()
 	s.logger.Info("server listening", "address", addr)
 	return http.ListenAndServe(addr, s.router)

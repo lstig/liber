@@ -2,7 +2,7 @@ package views
 
 import "github.com/lstig/liber/internal/services/book"
 
-templ Books(books []book.Book, props *GlobalProperties) {
+templ Books(books []book.Book) {
 	@layout("Books") {
 		for _, book := range books {
 			{ book.Title }

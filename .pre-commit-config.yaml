@@ -19,10 +19,17 @@ repos:
         entry: pnpm commitlint --edit
         pass_filenames: false
         always_run: true
-      - id: templ
-        name: templ
-        description: Verifies that generated templ files are up-to-date
-        entry: go tool -modfile=tools/go.mod templ generate && go tool -modfile=tools/go.mod templ fmt .
-        files: '.*\.templ'
+      - id: fmt
+        name: fmt
+        description: Verifies that files are formatted correctly
+        entry: task fmt
+        files: \.(go|templ)$
         language: golang
         pass_filenames: false
+      - id: generate
+        name: generate
+        description: Verifies that generated files are up-to-date
+        entry: go generate ./...
+        pass_filenames: false
+        language: golang
+        always_run: true

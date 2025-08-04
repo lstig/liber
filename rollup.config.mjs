@@ -8,8 +8,10 @@ import autoprefixer from "autoprefixer";
 export default {
   input: 'web/src/main.js',
   output: {
-    file: 'web/dist/bundle.min.js',
-    format: 'cjs'
+    hashCharacters: 'base36',
+    entryFileNames: 'bundle-[hash:8].js',
+    dir: 'web/dist',
+    format: 'cjs',
   },
   plugins: [
     commonjs(),
@@ -17,7 +19,6 @@ export default {
     terser(),
     postcss({
       extract: true,
-      to: 'bundle.min.css',
       plugins: [autoprefixer()],
       minimize: true,
     }),

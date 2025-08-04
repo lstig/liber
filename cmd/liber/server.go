@@ -8,7 +8,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/lstig/liber/internal/server"
-	"github.com/lstig/liber/internal/views"
 )
 
 func (cli *CLI) serverCmd() *cobra.Command {
@@ -23,7 +22,7 @@ func (cli *CLI) serverCmd() *cobra.Command {
 	return cmd
 }
 
-func (cli *CLI) serverRun(cmd *cobra.Command, args []string) error {
+func (cli *CLI) serverRun(_ *cobra.Command, _ []string) error {
 	logger := httplog.NewLogger("liber", httplog.Options{
 		Concise:         true,
 		LogLevel:        httplog.LevelByName(cli.verbosity),
@@ -31,10 +30,6 @@ func (cli *CLI) serverRun(cmd *cobra.Command, args []string) error {
 	})
 	srv, err := server.NewServer(
 		server.WithLogger(logger),
-		server.WithDevMode(cli.devMode),
-		server.WithProperties(&views.GlobalProperties{
-			Dev: cli.devMode,
-		}),
 		server.WithMiddleware(
 			chimiddleware.RequestID,
 			httplog.Handler(logger, []string{"/health"}),
