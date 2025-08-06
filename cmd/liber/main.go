@@ -1,24 +1,24 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
+	"os/signal"
+	"syscall"
 )
 
 var Version string = "not built correctly"
 
-type CLI struct {
-	verbosity string
-	server    struct {
-		listenAddress string
-	}
+func run() error {
+	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer cancel()
+	return rootCmd(ctx).Execute()
 }
 
 func main() {
-	cli := &CLI{}
-
-	if err := cli.root().Execute(); err != nil {
-		fmt.Println(err)
+	if err := run(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }

@@ -20,10 +20,9 @@ kill_delay = 1000
 log = "build-errors.log"
 poll = false
 poll_interval = 0
-post_cmd = ["lsof -i :8081 -sTCP:LISTEN -t | xargs -r kill -9"]
 rerun = false
 rerun_delay = 500
-send_interrupt = false
+send_interrupt = true
 stop_on_error = false
 
 [proxy]

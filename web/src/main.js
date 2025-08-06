@@ -1,2 +1,2 @@
-import '@starfederation/datastar';
+import './js/app.js';
 import './main.scss';

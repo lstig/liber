@@ -4,7 +4,6 @@ import (
 	"embed"
 )
 
-//go:generate find dist -type f -iname '*.js' -delete -o -iname '*.css' -delete
 //go:generate pnpm rollup --config --silent
 
 var (

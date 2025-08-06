@@ -1,12 +1,12 @@
 package main
 
 import (
-	"log/slog"
+	"context"
 
 	"github.com/spf13/cobra"
 )
 
-func (cli *CLI) root() *cobra.Command {
+func rootCmd(ctx context.Context) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "liber",
 		Short:             "Liber is an eBook server with OPDS support",
@@ -14,10 +14,8 @@ func (cli *CLI) root() *cobra.Command {
 		CompletionOptions: cobra.CompletionOptions{DisableDefaultCmd: true},
 	}
 
-	cmd.PersistentFlags().StringVarP(&cli.verbosity, "verbosity", "v", slog.LevelInfo.String(), "log level to display (DEBUG, INFO, WARN, or ERROR)")
-
 	cmd.AddCommand(
-		cli.serverCmd(),
+		serverCmd(ctx),
 	)
 
 	return cmd

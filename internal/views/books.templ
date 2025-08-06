@@ -1,11 +1,10 @@
 package views
 
-import "github.com/lstig/liber/internal/services/book"
-
-templ Books(books []book.Book) {
-	@layout("Books") {
-		for _, book := range books {
-			{ book.Title }
+templ Books() {
+	@layout() {
+		@templ.Fragment("page") {
+			<h1 class="title">Books</h1>
+			<p>This is content on the books page...</p>
 		}
 	}
 }
